@@ -1,11 +1,11 @@
 from django.core.management.base import BaseCommand
-from ...utils import request_data
+from ...utils import req_and_fill
 
 
 class Command(BaseCommand):
     help = "Fetch data from OpenFoodFact API and build database"
 
     def handle(self, *args, **kwargs):
-        data = request_data()
+        data = req_and_fill()
 
         pass

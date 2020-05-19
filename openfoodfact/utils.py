@@ -1,4 +1,5 @@
 import requests
+from products.models import Product, Category, Favorite
 
 
 class RequestData:
@@ -23,7 +24,7 @@ class RequestData:
             response = self._req(self.cat_url)
             data = response.json()
             self.list_cat = [i['name'] for i in data['tags']]
-            self.list_cat = self.list_cat[:1]  # to modify to 30
+            self.list_cat = self.list_cat[:1]
             self.data = {}
 
         except requests.exceptions.Timeout as t:
@@ -31,12 +32,10 @@ class RequestData:
         except requests.exceptions.RequestException as err:
             print("Something went bad, please retry : :", err)
 
-        # Reduce number of categories to limit database usage in heroku, now 10k -> 200
-
     def _fetch_products(self):
         """Request the products in respect for the categories loaded"""
-        print(
-            "Getting Products from API in respect to the Categories previously got")
+        print("Getting Products from API in respect to the"
+              " Categories previously got")
 
         all_products = {}
         for category in self.list_cat:
@@ -58,6 +57,7 @@ class RequestData:
 
     def _req(self, url, param=None):
         """Small request function used multiple times."""
+
         response = requests.get(url, param)
         return response
 
@@ -71,7 +71,7 @@ class Cleaner:
         self.data = data
         self.keys = ['id', 'product_name_fr', 'nutrition_grade_fr',
                      'url', 'image_front_url', 'image_ingredients_url', ]
-        self.list_cat = [i for i in self.data]
+        self.list_cat = [categories for categories in self.data]
         self._dict_data = []
         self.barcode_list = []
 
@@ -108,13 +108,28 @@ class Cleaner:
         self._dict_data.append(dictio)
 
 
-def request_data():
+class DbFiller:
+    def __init__(self, data):
+        self.data = data
+
+    def _fill_categories(self):
+        categories = [categories for categories in self.data]
+        for category in categories:
+            Category.objects.get_or_create()
+
+    def _fill_products(self):
+        pass
+
+
+def req_and_fill():
+    """Main function to instantiate and launch operations."""
+
     r = RequestData()
     data = r.exec()
     c = Cleaner(data)
     data = c.filter_product()
-    print(data)
+    return data
 
 
 if __name__ == "__main__":
-    request_data()
+    req_and_fill()
