@@ -9,24 +9,34 @@ class RequestData:
         self.search_url = "https://fr.openfoodfacts.org/cgi/search.pl"
         self.list_cat = []
         self.list_prod = []
+        self.data = {}
 
-    def fetch_category(self):
+    def exec(self):
+        self._fetch_category()
+        data = self._fetch_products()
+        return data
+
+    def _fetch_category(self):
         """Request the list of category from the API"""
         print("Getting Categories from API")
         try:
-            response = self.req(self.cat_url)
+            response = self._req(self.cat_url)
             data = response.json()
             self.list_cat = [i['name'] for i in data['tags']]
+            self.list_cat = self.list_cat[:1]  # to modify to 30
+            self.data = {}
 
         except requests.exceptions.Timeout as t:
             print("Request Timeout, please retry : ", t)
         except requests.exceptions.RequestException as err:
             print("Something went bad, please retry : :", err)
+
         # Reduce number of categories to limit database usage in heroku, now 10k -> 200
 
-    def fetch_products(self):
+    def _fetch_products(self):
         """Request the products in respect for the categories loaded"""
-        print("Getting Products from API in respect to the Categories previously got")
+        print(
+            "Getting Products from API in respect to the Categories previously got")
 
         all_products = {}
         for category in self.list_cat:
@@ -38,31 +48,73 @@ class RequestData:
                       "tag_contains_0": "contains",
                       # Number of articles per page
                       # Min content 20, Max content 1000
-                      "page_size": 1000,
+                      "page_size": 20,  # to modify to 250
                       # The API response in JSON
                       "json": 1}
-            response = self.req(self.search_url, param=config)
+            response = self._req(self.search_url, param=config)
             data = response.json()
             all_products[category] = data
+        return all_products
 
-        print("\n Raw data is now downloaded successfully")
-        print("Now saving...")
-        print("Success !")
-
-    def req(self, url, param=None):
-        """ small request function used multiple times"""
+    def _req(self, url, param=None):
+        """Small request function used multiple times."""
         response = requests.get(url, param)
         return response
 
 
+class Cleaner:
+    """This class will handle the data formatting before db use."""
+
+    def __init__(self, data):
+        """ Initialize variables and launch filter_products"""
+
+        self.data = data
+        self.keys = ['id', 'product_name_fr', 'nutrition_grade_fr',
+                     'url', 'image_front_url', 'image_ingredients_url', ]
+        self.list_cat = [i for i in self.data]
+        self._dict_data = []
+        self.barcode_list = []
+
+    def filter_product(self):
+        """  get the data from json files and run checks"""
+
+        for category in self.list_cat:
+            for element in self.data[category]['products']:
+                if self._data_exist(element):
+                    self._data_format(element, category)
+        return self._dict_data
+
+    def _data_exist(self, element):
+        """Run trough the data, if something's missing it's discarded."""
+
+        for x in self.keys:
+            if x not in element or element[x] == "" \
+                    or len(element["id"]) != 13:
+                return False
+        barcode = int(element['id'])
+        if barcode not in set(self.barcode_list):
+            self.barcode_list.append(barcode)
+        else:
+            return False
+        return True
+
+    def _data_format(self, element, cat):
+        """Format the data so it's usable into a list of dictionary
+        It returns data that will be used for the database."""
+
+        dictio = {}
+        for key in self.keys:
+            dictio[key] = element[key]
+        self._dict_data.append(dictio)
+
+
 def request_data():
     r = RequestData()
-    r.fetch_category()
-    r.fetch_products()
-    return r.list_prod
+    data = r.exec()
+    c = Cleaner(data)
+    data = c.filter_product()
+    print(data)
 
 
 if __name__ == "__main__":
-    r = RequestData()
-    r.fetch_category()
-    print(len(r.list_cat))
+    request_data()

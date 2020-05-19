@@ -7,5 +7,5 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         data = request_data()
-        
+
         pass
