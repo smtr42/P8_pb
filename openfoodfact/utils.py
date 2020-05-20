@@ -3,7 +3,7 @@ from products.models import Product, Category, Favorite
 
 
 class RequestData:
-    """ The class fetch the data and save it in to a json file"""
+    """The class fetch the data and save it in to a json file."""
 
     def __init__(self):
         self.cat_url = "https://fr.openfoodfacts.org/categories.json"
@@ -13,12 +13,13 @@ class RequestData:
         self.data = {}
 
     def exec(self):
+        """Main public function executing all necessary privates functions."""
         self._fetch_category()
         data = self._fetch_products()
         return data
 
     def _fetch_category(self):
-        """Request the list of category from the API"""
+        """Request the list of category from the API."""
         print("Getting Categories from API")
         try:
             response = self._req(self.cat_url)
@@ -36,7 +37,6 @@ class RequestData:
         """Request the products in respect for the categories loaded"""
         print("Getting Products from API in respect to the"
               " Categories previously got")
-
         all_products = {}
         for category in self.list_cat:
             config = {"action": "process",
@@ -57,7 +57,6 @@ class RequestData:
 
     def _req(self, url, param=None):
         """Small request function used multiple times."""
-
         response = requests.get(url, param)
         return response
 
@@ -66,8 +65,7 @@ class Cleaner:
     """This class will handle the data formatting before db use."""
 
     def __init__(self, data):
-        """ Initialize variables and launch filter_products"""
-
+        """Initialize variables and launch filter_products"""
         self.data = data
         self.keys = ['id', 'product_name_fr', 'nutrition_grade_fr',
                      'url', 'image_front_url', 'image_ingredients_url', ]
@@ -76,8 +74,7 @@ class Cleaner:
         self.barcode_list = []
 
     def filter_product(self):
-        """  get the data from json files and run checks"""
-
+        """Get the data from json files and run checks"""
         for category in self.list_cat:
             for element in self.data[category]['products']:
                 if self._data_exist(element):
@@ -86,7 +83,6 @@ class Cleaner:
 
     def _data_exist(self, element):
         """Run trough the data, if something's missing it's discarded."""
-
         for x in self.keys:
             if x not in element or element[x] == "" \
                     or len(element["id"]) != 13:
@@ -109,13 +105,16 @@ class Cleaner:
 
 
 class DbFiller:
+    """Handle the filling of the database."""
+
     def __init__(self, data):
         self.data = data
 
     def _fill_categories(self):
         categories = [categories for categories in self.data]
         for category in categories:
-            Category.objects.get_or_create()
+            cat = Category(category_name=category)
+            cat.save()
 
     def _fill_products(self):
         pass
@@ -123,12 +122,13 @@ class DbFiller:
 
 def req_and_fill():
     """Main function to instantiate and launch operations."""
-
     r = RequestData()
     data = r.exec()
     c = Cleaner(data)
     data = c.filter_product()
-    return data
+    d = DbFiller(data)
+    d._fill_categories()
+    # return data
 
 
 if __name__ == "__main__":
