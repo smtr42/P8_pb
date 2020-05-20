@@ -35,3 +35,6 @@ class Favorite(models.Model):
                                 on_delete=models.CASCADE, )
     substitute = models.ForeignKey("Product", related_name='fav_substitute',
                                    on_delete=models.CASCADE, )
+
+    def __str__(self):
+        return f'{self.user} subs {self.product} for {self.substitute}'
