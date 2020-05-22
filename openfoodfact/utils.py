@@ -1,4 +1,5 @@
 import requests
+
 from products.models import Product, Category, Favorite
 
 
@@ -70,7 +71,8 @@ class Cleaner:
         self.keys = ['id', 'product_name_fr', 'nutrition_grade_fr',
                      'url', 'image_front_url', 'image_ingredients_url', ]
         self.list_cat = [categories for categories in self.data]
-        self._dict_data = []
+        self._dict_data = {}
+        self.list_of_dictio = []
         self.barcode_list = []
 
     def filter_product(self):
@@ -101,7 +103,9 @@ class Cleaner:
         dictio = {}
         for key in self.keys:
             dictio[key] = element[key]
-        self._dict_data.append(dictio)
+        # self._dict_data.append(dictio)
+        self.list_of_dictio.append(dictio)
+        self._dict_data[cat] = self.list_of_dictio
 
 
 class DbFiller:
@@ -117,6 +121,7 @@ class DbFiller:
             cat.save()
 
     def _fill_products(self):
+
         pass
 
 
@@ -126,8 +131,9 @@ def req_and_fill():
     data = r.exec()
     c = Cleaner(data)
     data = c.filter_product()
-    d = DbFiller(data)
-    d._fill_categories()
+    print(data)
+    # d = DbFiller(data)
+    # d._fill_categories()
     # return data
 
 

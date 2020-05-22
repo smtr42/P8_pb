@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'users.apps.UsersConfig',
     'products.apps.ProductsConfig',
+    'openfoodfact.apps.OpenfoodfactConfig',
 ]
 
 MIDDLEWARE = [
