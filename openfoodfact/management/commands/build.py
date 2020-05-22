@@ -6,6 +6,4 @@ class Command(BaseCommand):
     help = "Fetch data from OpenFoodFact API and build database"
 
     def handle(self, *args, **kwargs):
-        data = req_and_fill()
-
-        pass
+        req_and_fill()

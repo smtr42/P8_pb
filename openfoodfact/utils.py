@@ -114,15 +114,28 @@ class DbFiller:
     def __init__(self, data):
         self.data = data
 
-    def _fill_categories(self):
-        categories = [categories for categories in self.data]
-        for category in categories:
+    def fill_db(self):
+
+        self.keys = ['id', 'product_name_fr', 'nutrition_grade_fr',
+                     'url', 'image_front_url', 'image_ingredients_url', ]
+
+        for category in self.data:
             cat = Category(category_name=category)
             cat.save()
+            for p in self.data[category]:
+                prod = Product(barcode=p['id'],
+                               product_name=p['product_name_fr'],
+                               nutriscore=p['nutrition_grade_fr'],
+                               url=p['url'],
+                               image_url=['image_front_url'],
+                               image_nut_url=['image_ingredients_url'],
+                               categories=[cat])
+                prod.save()
 
-    def _fill_products(self):
-
-        pass
+    def delete_everything(self):
+        Category.objects.all().delete()
+        Product.objects.all().delete()
+        Favorite.objects.all().delete()
 
 
 def req_and_fill():
@@ -131,10 +144,9 @@ def req_and_fill():
     data = r.exec()
     c = Cleaner(data)
     data = c.filter_product()
-    print(data)
-    # d = DbFiller(data)
-    # d._fill_categories()
-    # return data
+    d = DbFiller(data)
+    d.delete_everything()
+    d.fill_db()
 
 
 if __name__ == "__main__":
