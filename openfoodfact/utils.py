@@ -127,10 +127,10 @@ class DbFiller:
                                product_name=p['product_name_fr'],
                                nutriscore=p['nutrition_grade_fr'],
                                url=p['url'],
-                               image_url=['image_front_url'],
-                               image_nut_url=['image_ingredients_url'],
-                               categories=[cat])
+                               image_url=p['image_front_url'],
+                               image_nut_url=p['image_ingredients_url'], )
                 prod.save()
+                prod.categories.add(cat)
 
     def delete_everything(self):
         Category.objects.all().delete()
