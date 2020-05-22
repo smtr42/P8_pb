@@ -92,24 +92,3 @@ class ProductModeltest(TestCase):
         product = Product.objects.get(id=1)
         expected_object_name = product.product_name
         self.assertEquals(expected_object_name, str(product))
-
-
-# class FavoriteModeltest(TestCase):
-#     @classmethod
-#     def setUpTestData(cls):
-#         Favorite.objects.create(category_name="Sodas")
-#
-#     def test_favorite_name_label(self):
-#         favorite = Favorite.objects.get(id=1)
-#         field_label = favorite._meta.get_field('category_name').verbose_name
-#         self.assertEquals(field_label, 'category name')
-#
-#     def test_favorite_name_max_length(self):
-#         favorite = Favorite.objects.get(id=1)
-#         max_length = favorite._meta.get_field('category_name').max_length
-#         self.assertEquals(max_length, 255)
-#
-#     def test_object_name_is_model_name(self):
-#         favorite = Favorite.objects.get(id=1)
-#         expected_object_name = f'{favorite.user} subs {favorite.product} for {favorite.substitute}'
-#         self.assertEquals(expected_object_name, str(favorite))
