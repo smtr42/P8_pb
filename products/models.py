@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from . import managers
 
 
 class Category(models.Model):
@@ -12,6 +13,9 @@ class Category(models.Model):
 
 class Product(models.Model):
     """Handle the Product information."""
+
+    objects = managers.ProductManager()
+
     barcode = models.CharField(max_length=13, unique=True)
     product_name = models.CharField(max_length=255)
     nutriscore = models.CharField(max_length=1)

@@ -1,9 +1,15 @@
+"""Custom manage.py command."""
 from django.core.management.base import BaseCommand
-from ...utils import req_and_fill
+from openfoodfact.utils import req_and_clean
+from products.models import Product
 
 
 class Command(BaseCommand):
+    """Custom manage.py command to build database."""
     help = "Fetch data from OpenFoodFact API and build database"
 
     def handle(self, *args, **kwargs):
-        req_and_fill()
+        """Execution when the command is called."""
+        data = req_and_clean()
+        Product.objects.delete_data_in_tables()
+        Product.objects.create_db_from_openfoodfacts(data)
