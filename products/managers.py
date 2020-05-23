@@ -6,19 +6,13 @@ from django.apps import apps
 class ProductManager(models.Manager):
     """Custom Object"""
 
-    # def __init__(self):
-    #     """Instanciate models used in the class."""
-    #     # self.product_model = apps.get_model('products', 'Product')
-    #     # self.category_model = apps.get_model('products', 'Category')
-    #     # self.favorite_model = apps.get_model('products', 'Favorite')
-
     def create_db_from_openfoodfacts(self, data):
         """Save each product into the database."""
         product_model = apps.get_model('products', 'Product')
         category_model = apps.get_model('products', 'Category')
         favorite_model = apps.get_model('products', 'Favorite')
         for category in data:
-            cat = self.category_model(category_name=category)
+            cat = category_model(category_name=category)
             cat.save()
             for p in data[category]:
                 prod = product_model(barcode=p['id'],
