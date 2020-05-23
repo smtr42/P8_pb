@@ -1,8 +1,8 @@
 """Useful command to download and clean data from OpenFoodfact."""
 import requests
 
-from products.models import Product, Category, Favorite
-
+keys = ['id', 'product_name_fr', 'nutrition_grade_fr',
+                     'url', 'image_front_url', 'image_ingredients_url', ]
 
 class RequestData:
     """The class fetch the data and save it in to a json file."""
@@ -39,6 +39,7 @@ class RequestData:
         """Request the products in respect for the categories loaded"""
         print("Getting Products from API in respect to the"
               " Categories previously got")
+        fields = ",".join(keys)
         all_products = {}
         for category in self.list_cat:
             config = {"action": "process",
@@ -46,6 +47,7 @@ class RequestData:
                       "tagtype_0": "categories",
                       # the tag represents the article search
                       'tag_0': category,
+                      'fields': fields,
                       "tag_contains_0": "contains",
                       # Number of articles per page
                       # Min content 20, Max content 1000
@@ -69,8 +71,7 @@ class Cleaner:
     def __init__(self, data):
         """Initialize variables and launch filter_products"""
         self.data = data
-        self.keys = ['id', 'product_name_fr', 'nutrition_grade_fr',
-                     'url', 'image_front_url', 'image_ingredients_url', ]
+        self.keys = keys
         self.list_cat = [categories for categories in self.data]
         self._dict_data = {}
         self.list_of_dictio = []
@@ -113,10 +114,12 @@ def req_and_clean():
     """Main function to instantiate and launch operations."""
     r = RequestData()
     data = r.exec()
+    print("before clean data :", data)
     c = Cleaner(data)
     data = c.filter_product()
     return data
 
 
 if __name__ == "__main__":
-    req_and_clean()
+    data = req_and_clean()
+    print("final data :", data)
