@@ -2,16 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>HomePage</title>
 </head>
 <body>
-<h1>Django Login Mega-Tutorial</h1>
+<h1>Index page (index.html)</h1>
 {% if user.is_authenticated %}
-<p>Hi {{ user.username }}
-<p><a href="{% url 'logout' %}">Log out</a></p>
+    <p>Hi your are logged as {{ user.username }} !</p>
+    <p><a href="{% url 'logout' %}">Log out</a></p>
 {% else %}
-<p><a href="{% url 'signup' %}">Sign Up</a></p>
-<p><a href="{% url 'login' %}">Log In </a></p>
+    <p>Your are not logged in, sign up or log in !</p>
+    <p><a href="{% url 'signup' %}">Sign Up</a></p>
+    <p><a href="{% url 'login' %}">Log In </a></p>
 {% endif %}
 </body>
 </html>
