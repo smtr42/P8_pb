@@ -32,11 +32,14 @@
                         class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                            <a class="navbar-brand:focus" href="#">
-                              <img src="{% static 'dist/assets/img/carot.png' %}" alt="">
-                            </a>
-                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">Mon Compte</a></li>
-                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Mes aliments</a></li>
+                            <i class="fas fa-carrot fa-fw fa-2x"></i>
+                            {% if user.is_authenticated %}
+                                {{ user.username }} !
+                                <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw fa-2x"></i></a>
+                            {% else %}
+                                <a href="{% url 'users:signup' %}"><i class="fas fa-user-plus fa-fw fa-2x"></i></a>
+                                <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt fa-fw fa-2x"></i></a>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
