@@ -3,9 +3,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>HomePage</title>
+    <title>{% block title %}Mon titre index html{% endblock title %}</title>
 </head>
 <body>
+
+
 <h1>Index page (index.html)</h1>
 {% if user.is_authenticated %}
     <p>Hi your are logged as {{ user.username }} !</p>
@@ -15,5 +17,8 @@
     <p><a href="{% url 'users:signup' %}">Sign Up</a></p>
     <p><a href="{% url 'login' %}">Log In </a></p>
 {% endif %}
+
+
+
 </body>
 </html>
