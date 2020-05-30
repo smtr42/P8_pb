@@ -63,10 +63,10 @@
                             <p class="text-white-75 font-weight-light mb-5">
                                 Trouvez un produit de substitution pour
                                 ceux que vous  consommez tous les jours.</p>
-                            <form id='form' action="{% url 'products:sub_list' %}" method="post">
-                              {% csrf_token %}
-                              <input type="text" name="sub_list" class="form-control" placeholder="Cherchez ici un produit...">
-                              <button class="btn mt-4 btn-primary">Chercher</button>
+                            <form id="form" action="{% url 'products:sub_list' %}" method="post">
+                                {% csrf_token %}
+                                <input type="text" name="product" class="form-control" placeholder="Cherchez ici un produit..."">
+                                <input class="btn mt-4 btn-primary" type="submit" value="Chercher">
                             </form>
                         </div>
                     </div>
