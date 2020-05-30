@@ -32,7 +32,7 @@
                         class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                            <form id="form-nav" action="{% url 'users:signup' %}" method="get">
+                            <form id="form-nav" action="{% url 'products:sub_list' %}" method="get">
                               {% csrf_token %}
                               <input type="text" name="query" class="form-control" placeholder="Cherchez ici un produit...">
                             </form>
@@ -63,7 +63,8 @@
                             <p class="text-white-75 font-weight-light mb-5">
                                 Trouvez un produit de substitution pour
                                 ceux que vous  consommez tous les jours.</p>
-                            <form action="{% url 'users:signup' %}" method="get">
+                            <form id='form' action="{% url 'products:sub_list' %}" method="get">
+                              {% csrf_token %}
                               <input type="text" name="query" class="form-control" placeholder="Cherchez ici un produit...">
                               <button class="btn mt-4 btn-primary">Chercher</button>
                             </form>
@@ -215,12 +216,6 @@
             </div>
         </section>
         {% endblock content %}
-<!--        &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-        <form action="{% url 'users:signup' %}" method="get">
-          <input type="text" name="query" class="form-control" placeholder="Cherchez ici un produit...">
-          <button class="btn mt-4 btn-primary">Chercher</button>
-        </form>
-<!--            -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
 
         {% block footer %}
         <!-- Footer-->
