@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import SubListView
+from .views import search_product
 
 app_name = 'products'
 urlpatterns = [
-    path('sub_list/', SubListView.as_view(), name='sub_list'),
+    path('', search_product, name='sub_list'),
 ]

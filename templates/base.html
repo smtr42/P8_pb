@@ -28,13 +28,13 @@
                       <img src="{% static 'dist/assets/img/logo-100.png' %}" alt="">
                     </a>
                     <a class="navbar-brand js-scroll-trigger"
-                       href="#page-top">Pur Beurre</a><button
+                       href="{% url 'pages:index' %}">Pur Beurre</a><button
                         class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                            <form id="form-nav" action="{% url 'products:sub_list' %}" method="get">
+                            <form id="form-nav" action="{% url 'products:sub_list' %}" method="post">
                               {% csrf_token %}
-                              <input type="text" name="query" class="form-control" placeholder="Cherchez ici un produit...">
+                              <input type="text" name="product" class="form-control" placeholder="Cherchez ici un produit..." required>
                             </form>
                             <a href="{% url 'logout' %}"><i class="fas fa-carrot fa-fw fa-2x"></i></a>
                             {% if user.is_authenticated %}
@@ -63,9 +63,9 @@
                             <p class="text-white-75 font-weight-light mb-5">
                                 Trouvez un produit de substitution pour
                                 ceux que vous  consommez tous les jours.</p>
-                            <form id='form' action="{% url 'products:sub_list' %}" method="get">
+                            <form id='form' action="{% url 'products:sub_list' %}" method="post">
                               {% csrf_token %}
-                              <input type="text" name="query" class="form-control" placeholder="Cherchez ici un produit...">
+                              <input type="text" name="sub_list" class="form-control" placeholder="Cherchez ici un produit...">
                               <button class="btn mt-4 btn-primary">Chercher</button>
                             </form>
                         </div>

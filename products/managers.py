@@ -6,12 +6,6 @@ from django.apps import apps
 class ProductManager(models.Manager):
     """Custom Object"""
 
-    # def __init__(self):
-    #     """Instanciate models used in the class."""
-    #     self.product_model = apps.get_model('products', 'Product')
-    #     self.category_model = apps.get_model('products', 'Category')
-    #     self.favorite_model = apps.get_model('products', 'Favorite')
-
     def create_db_from_openfoodfacts(self, data):
         """Save each product into the database."""
         product_model = apps.get_model('products', 'Product')
@@ -41,5 +35,7 @@ class ProductManager(models.Manager):
         product_model.objects.all().delete()
         favorite_model.objects.all().delete()
 
-    def get_substitutes_for_product(self, product):
-        pass
+    @staticmethod
+    def get_substitutes_for_product(request):
+        product_model = apps.get_model('products', 'Product')
+        return request

@@ -13,10 +13,10 @@
             <div class="row h-100 align-items-center justify-content-center text-center">
                 <div class="col-lg-8 align-self-baseline">
                     <p class="text-white-75 font-weight-light mb-5">
-                    {% for article in object_list %}
-                        <li>{{ article.pub_date|date }} - {{ article.headline }}</li>
+                    {% for element in product %}
+                        <li>{{ element }}</li>
                     {% empty %}
-                        <li>No articles yet.</li>
+                        <li>No product found.</li>
                     {% endfor %}
                     </p>
                 </div>
