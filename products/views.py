@@ -14,13 +14,13 @@ def search_product(request):
         form = SearchForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            data = ProductManager.get_substitutes_for_product(
+            data = ProductManager.search_from_user_input(
                 form.cleaned_data)
-            return render(request, 'products/sub_list.html', data)
+            return render(request, 'products/search_list.html', data)
             # return HttpResponseRedirect('products/sub_list.html')
         else:
             raise Http404
     # if a GET (or any other method) we'll create a blank form
     else:
         form = SearchForm()
-    return render(request, 'products/sub_list.html', {'form': form})
+    return render(request, 'products/search_list.html', {'form': form})

@@ -41,19 +41,54 @@ class ProductManager(models.Manager):
         favorite_model.objects.all().delete()
 
     @staticmethod
-    def get_substitutes_for_product(data):
+    def search_from_user_input(data):
         """Retrieve products from user search."""
+        # https://docs.djangoproject.com/fr/3.0/ref/models/querysets/#field-lookups
+
         product_model = apps.get_model('products', 'Product')
 
         exact_query = product_model.objects.filter(
             product_name__iexact=data['product'])
         contain_query = product_model.objects.filter(
-            product_name__icontains=data['product'])
-        search_result = [
-            list(contain_query) if not exact_query else list(exact_query)]
-        nit_substitute_list = get_list_or_404(
-            product_model.objects.order_by('nutriscore'),
-            category=product_model.categories,
-            nutrition_score__lt=product_model.nutriscore)
-        print("final_search : ", nit_substitute_list)
-        return nit_substitute_list
+                product_name__icontains=data['product'])
+
+        search_result = [contain_query if not exact_query else exact_query]
+
+        # full_prod = get_list_or_404(
+        # product_model.objects.order_by('nutriscore'))
+
+        mydict = {"product": search_result}
+        # mydict = {"product": full_prod}
+        print(search_result)
+        return mydict
+
+# select_related
+
+
+# Sélectionner les produits ayant un meilleur nutriscore
+# et qui ont des catégories en commun, ordonnés par nombre
+# décroissant de catégories partagées.
+
+#         ''' Get the most accurate healthy substitutes for
+#             a given search_product and a category.
+#         '''
+#         rows = self.database.query(
+#             "SELECT "
+#             "    P.id as Id, "
+#             "    P.product_name as Name, "
+#             "    P.nutriscore as Nutriscore "
+#             "FROM Product P "
+#             "INNER JOIN Product_Category AS PC "
+#             "    ON P.id = PC.id_product "
+#             "INNER JOIN Product_Category AS PC2 "
+#             "    ON P.id = PC2.id_product "
+#             "INNER JOIN Product_Category AS PC3 "
+#             "    ON PC2.id_category = PC3.id_category "
+#             "WHERE P.nutriscore in ('a', 'b') "
+#             "AND PC.id_category = :cat_id "
+#             "AND PC3.id_product = :p_id "
+#             "GROUP BY P.id, P.product_name, P.nutriscore "
+#             "ORDER BY P.nutriscore ASC, COUNT(PC2.id_category) DESC "
+#             "LIMIT 5 ",
+#             cat_id=id_category,
+#             p_id=id_search_product)
