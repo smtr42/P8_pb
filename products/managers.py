@@ -62,33 +62,35 @@ class ProductManager(models.Manager):
         print(search_result)
         return mydict
 
-# select_related
+    # select_related
 
+    # Sélectionner les produits ayant un meilleur nutriscore
+    # et qui ont des catégories en commun, ordonnés par nombre
+    # décroissant de catégories partagées.
+    #
+    #         rows = self.database.query(
+    #             "SELECT "
+    #             "    P.id as Id, "
+    #             "    P.product_name as Name, "
+    #             "    P.nutriscore as Nutriscore "
+    #             "FROM Product P "
+    #             "INNER JOIN Product_Category AS PC "
+    #             "    ON P.id = PC.id_product "
+    #             "INNER JOIN Product_Category AS PC2 "
+    #             "    ON P.id = PC2.id_product "
+    #             "INNER JOIN Product_Category AS PC3 "
+    #             "    ON PC2.id_category = PC3.id_category "
+    #             "WHERE P.nutriscore in ('a', 'b') "
+    #             "AND PC.id_category = :cat_id "
+    #             "AND PC3.id_product = :p_id "
+    #             "GROUP BY P.id, P.product_name, P.nutriscore "
+    #             "ORDER BY P.nutriscore ASC, COUNT(PC2.id_category) DESC "
+    #             "LIMIT 5 ",
+    #             cat_id=id_category,
+    #             p_id=id_search_product)
 
-# Sélectionner les produits ayant un meilleur nutriscore
-# et qui ont des catégories en commun, ordonnés par nombre
-# décroissant de catégories partagées.
+    def get_substitute_from_product(self):
+        pass
 
-#         ''' Get the most accurate healthy substitutes for
-#             a given search_product and a category.
-#         '''
-#         rows = self.database.query(
-#             "SELECT "
-#             "    P.id as Id, "
-#             "    P.product_name as Name, "
-#             "    P.nutriscore as Nutriscore "
-#             "FROM Product P "
-#             "INNER JOIN Product_Category AS PC "
-#             "    ON P.id = PC.id_product "
-#             "INNER JOIN Product_Category AS PC2 "
-#             "    ON P.id = PC2.id_product "
-#             "INNER JOIN Product_Category AS PC3 "
-#             "    ON PC2.id_category = PC3.id_category "
-#             "WHERE P.nutriscore in ('a', 'b') "
-#             "AND PC.id_category = :cat_id "
-#             "AND PC3.id_product = :p_id "
-#             "GROUP BY P.id, P.product_name, P.nutriscore "
-#             "ORDER BY P.nutriscore ASC, COUNT(PC2.id_category) DESC "
-#             "LIMIT 5 ",
-#             cat_id=id_category,
-#             p_id=id_search_product)
+    def get_product_from_selection(self):
+        pass
