@@ -62,6 +62,9 @@ class ProductManager(models.Manager):
         print(search_result)
         return mydict
 
+    def get_all_by_term(self, term):
+        return self.filter(product_name__icontains=term)
+
     # select_related
 
     # Sélectionner les produits ayant un meilleur nutriscore

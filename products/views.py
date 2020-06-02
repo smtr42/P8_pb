@@ -24,3 +24,7 @@ def search_product(request):
     else:
         form = SearchForm()
     return render(request, 'products/search_list.html', {'form': form})
+
+
+def home(request):
+    return render(request, "pages/index.html")
