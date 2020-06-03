@@ -3,7 +3,8 @@ from django.db import models
 from django.apps import apps
 from django.shortcuts import get_list_or_404
 from django.db import IntegrityError
-
+from django.core.management.color import no_style
+from django.db import connection
 
 class ProductManager(models.Manager):
     """Custom Object"""
@@ -12,8 +13,8 @@ class ProductManager(models.Manager):
         """Save each product into the database."""
         product_model = apps.get_model('products', 'Product')
         category_model = apps.get_model('products', 'Category')
+        print("Saving data into the database")
         for category in data:
-            print("Saving in database the Category : ", category)
             cat = category_model(category_name=category)
             cat.save()
             for p in data[category]:
@@ -36,9 +37,16 @@ class ProductManager(models.Manager):
         category_model = apps.get_model('products', 'Category')
         favorite_model = apps.get_model('products', 'Favorite')
         print("Deleting everything in database")
+
         category_model.objects.all().delete()
         product_model.objects.all().delete()
         favorite_model.objects.all().delete()
+        sequence_sql = connection.ops.sequence_reset_sql(no_style(),
+                                                         [product_model, category_model, favorite_model])
+        with connection.cursor() as cursor:
+            for sql in sequence_sql:
+                cursor.execute(sql)
+
 
     @staticmethod
     def search_from_user_input(data):

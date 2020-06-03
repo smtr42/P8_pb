@@ -27,7 +27,7 @@ class RequestData:
             response = self._req(self.cat_url)
             data = response.json()
             self.list_cat = [i['name'] for i in data['tags']]
-            self.list_cat = self.list_cat[:10]
+            self.list_cat = self.list_cat[:17]
             self.data = {}
 
         except requests.exceptions.Timeout as t:
@@ -51,12 +51,12 @@ class RequestData:
                       "tag_contains_0": "contains",
                       # Number of articles per page
                       # Min content 20, Max content 1000
-                      "page_size": 250,  # to modify to 250
+                      "page_size": 500, # to modify to 250
                       # The API response in JSON
                       "json": 1}
             response = self._req(self.search_url, param=config)
-            data = response.json()
-            all_products[category] = data
+            res = response.json()
+            all_products[category] = res
         return all_products
 
     def _req(self, url, param=None):
@@ -82,7 +82,10 @@ class Cleaner:
         for category in self.list_cat:
             for element in self.data[category]['products']:
                 if self._data_exist(element):
-                    self._data_format(element, category)
+                    # self._data_format(element, category)
+                    self.list_of_dictio.append(element)
+            self._dict_data[category] = self.list_of_dictio
+            self.list_of_dictio = []
         return self._dict_data
 
     def _data_exist(self, element):
@@ -121,3 +124,4 @@ def req_and_clean():
 
 if __name__ == "__main__":
     data = req_and_clean()
+    print(data)
