@@ -47,28 +47,40 @@ class ProductManager(models.Manager):
             for sql in sequence_sql:
                 cursor.execute(sql)
 
-
     @staticmethod
     def search_from_user_input(data):
-        """Retrieve products from user search."""
+        """Retrieve substitute from user search."""
         # https://docs.djangoproject.com/fr/3.0/ref/models/querysets/#field-lookups
 
         product_model = apps.get_model('products', 'Product')
 
-        exact_query = product_model.objects.filter(
-            product_name__iexact=data['product'])
-        contain_query = product_model.objects.filter(
-                product_name__icontains=data['product'])
+        selected_product = (product_model.objects.filter(
+            product_name__iexact=data['product']).values())
 
-        search_result = [contain_query if not exact_query else exact_query]
+        # substitutes = (product_model.objects.filter(
+        #     categories__id=selected_product[0][
+        #         'category'])
+        #                    .order_by('nutriscore', 'popularity').values(
+        #     'name', 'nutriscore', 'pk', 'img_url')[:12])
 
-        # full_prod = get_list_or_404(
-        # product_model.objects.order_by('nutriscore'))
+        # if selected_product.nutriscore == "a":
+        #     print("nutriscore = A")
+        # substitute_list = get_list_or_404(
+        #     product_model.objects.order_by('nutriscore'),
+        #                 categories=product_model.categories,
+        #                 nutriscore__gt="B")
 
-        mydict = {"product": search_result}
-        # mydict = {"product": full_prod}
-        print(search_result)
-        return mydict
+        # dictio = {"product": selected_product}
+
+        return selected_product
+
+    #         search_product = (Product.objects.filter(name__icontains=input)
+    #                           .order_by('nutriscore').values('name', 'category', 'img_url', 'pk')[:1])
+    #         if search_product:
+    #             products = (Product.objects.filter(category__id=search_product[0]['category'])
+    #                         .order_by('nutriscore', 'popularity').values('name', 'nutriscore', 'pk', 'img_url')[:12])
+    #             search_product_status = True
+    #             search_product = search_product[0]
 
     def get_all_by_term(self, term):
         return self.filter(product_name__icontains=term)

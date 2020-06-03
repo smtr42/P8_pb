@@ -100,17 +100,6 @@ class Cleaner:
             return False
         return True
 
-    def _data_format(self, element, cat):
-        """Format the data so it's usable into a list of dictionary
-        It returns data that will be used for the database."""
-
-        dictio = {}
-        for key in self.keys:
-            dictio[key] = element[key]
-        self.list_of_dictio.append(dictio)
-        self._dict_data[cat] = self.list_of_dictio
-
-
 def req_and_clean():
     """Main function to instantiate and launch operations."""
     r = RequestData()

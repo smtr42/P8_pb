@@ -37,7 +37,7 @@
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav ml-auto my-2 my-lg-0">
 
-                            <form>
+                            <form action="{% url 'products:sub_list' %}" method="POST">
                                 {% csrf_token %}
                                 <div class="form-group">
                                     <input type="text" id="product-input"
@@ -74,16 +74,18 @@
                                 Trouvez un produit de substitution pour
                                 ceux que vous  consommez tous les jours.</p>
 
-                            <form>
+                            <form action="{% url 'products:sub_list' %}"
+                                  method="POST">
                                 {% csrf_token %}
                                 <div class="form-group">
-                                    <input type="text" id="product-input"
+                                    <input id="product"
+                                           type="text"
                                            class="form-control product-input"
+                                           name="product"
                                            placeholder="Cherchez ici un produit...">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Envoyer</button>
                             </form>
-
                         </div>
                     </div>
                 </div>
