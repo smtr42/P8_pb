@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'products.apps.ProductsConfig',
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
+    'autocomplete.apps.AutocompleteConfig',
 ]
 
 MIDDLEWARE = [
