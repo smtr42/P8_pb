@@ -51,7 +51,7 @@ class RequestData:
                       "tag_contains_0": "contains",
                       # Number of articles per page
                       # Min content 20, Max content 1000
-                      "page_size": 500, # to modify to 250
+                      "page_size": 500,
                       # The API response in JSON
                       "json": 1}
             response = self._req(self.search_url, param=config)
@@ -82,7 +82,6 @@ class Cleaner:
         for category in self.list_cat:
             for element in self.data[category]['products']:
                 if self._data_exist(element):
-                    # self._data_format(element, category)
                     self.list_of_dictio.append(element)
             self._dict_data[category] = self.list_of_dictio
             self.list_of_dictio = []
@@ -108,7 +107,6 @@ class Cleaner:
         dictio = {}
         for key in self.keys:
             dictio[key] = element[key]
-        # self._dict_data.append(dictio)
         self.list_of_dictio.append(dictio)
         self._dict_data[cat] = self.list_of_dictio
 
