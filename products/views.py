@@ -28,7 +28,6 @@ def sub_list(request):
     if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():
-            print("form cleaned data", form.cleaned_data["product"])
             data = ProductManager.search_from_user_input(form.cleaned_data)
             return render(request, 'products/sub_list.html', {"product": data})
         else:

@@ -1,10 +1,10 @@
 """Database operations with a global scale."""
 from django.db import models
 from django.apps import apps
-from django.shortcuts import get_list_or_404
 from django.db import IntegrityError
 from django.core.management.color import no_style
 from django.db import connection
+
 
 class ProductManager(models.Manager):
     """Custom Object"""
@@ -53,9 +53,18 @@ class ProductManager(models.Manager):
         # https://docs.djangoproject.com/fr/3.0/ref/models/querysets/#field-lookups
 
         product_model = apps.get_model('products', 'Product')
+        name = data['product']
 
         selected_product = (product_model.objects.filter(
-            product_name__iexact=data['product']).values())
+            product_name__iexact=name).values())
+        selected_product_category_name = product_model.objects.filter(product_name__iexact=name).values('categories__category_name')
+
+
+        # substitutes = (product_model.objects.filter(
+        #     categories__id=selected_product[0][
+        #         'category'])
+        #                    .order_by('nutriscore', 'popularity').values(
+        #     'name', 'nutriscore', 'pk', 'img_url')[:12])
 
         # substitutes = (product_model.objects.filter(
         #     categories__id=selected_product[0][
