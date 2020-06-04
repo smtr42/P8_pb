@@ -55,8 +55,6 @@ class ProductManager(models.Manager):
         # https://docs.djangoproject.com/fr/3.0/ref/models/querysets/#field-lookups
 
         product_model = apps.get_model('products', 'Product')
-        category_model = apps.get_model('products', 'Category')
-
         name = data['product']
 
         selected_product = (product_model.objects.filter(
@@ -70,43 +68,11 @@ class ProductManager(models.Manager):
                 'categories__category_name'],
         ).order_by('nutriscore').values(
             'product_name', 'nutriscore', "id", "url", "image_url",
-            "image_nut_url")
-
-        # substitutes = (product_model.objects.filter(
-        #     categories__id=selected_product[0][
-        #         'category'])
-        #                    .order_by('nutriscore', 'popularity').values(
-        #     'name', 'nutriscore', 'pk', 'img_url')[:12])
-
-        # substitutes = (product_model.objects.filter(
-        #     categories__id=selected_product[0][
-        #         'category'])
-        #                    .order_by('nutriscore').values(
-        #     'name', 'nutriscore', 'pk', 'img_url')[:12])
-
-        # if selected_product.nutriscore == "a":
-        #     print("nutriscore = A")
-        # substitute_list = get_list_or_404(
-        #     product_model.objects.order_by('nutriscore'),
-        #                 categories=product_model.categories,
-        #                 nutriscore__gt="B")
-
-        # dictio = {"product": selected_product}
-
+            "image_nut_url")[:5]
         return substitute
-
-    #         search_product = (Product.objects.filter(name__icontains=input)
-    #                           .order_by('nutriscore').values('name', 'category', 'img_url', 'pk')[:1])
-    #         if search_product:
-    #             products = (Product.objects.filter(category__id=search_product[0]['category'])
-    #                         .order_by('nutriscore', 'popularity').values('name', 'nutriscore', 'pk', 'img_url')[:12])
-    #             search_product_status = True
-    #             search_product = search_product[0]
 
     def get_all_by_term(self, term):
         return self.filter(product_name__icontains=term)
-
-    # select_related
 
     def get_substitute_from_product(self):
         pass
