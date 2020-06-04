@@ -1,7 +1,6 @@
 from products.managers import ProductManager
 from products.forms import SearchForm
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
 from django.http import Http404
 
 
