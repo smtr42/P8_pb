@@ -35,4 +35,3 @@ def sub_list(request):
     else:
         form = SearchForm()
     return render(request, 'products/sub_list.html', {'form': form})
-

@@ -62,13 +62,14 @@ class ProductManager(models.Manager):
         selected_product_category_name = product_model.objects.filter(
             product_name__iexact=name).values('categories__category_name',
                                               "id")
+        print(selected_product[0]["nutriscore"])
 
         substitute = product_model.objects.filter(
             categories__category_name=selected_product_category_name[0][
-                'categories__category_name'],
-        ).order_by('nutriscore').values(
+                'categories__category_name'], nutriscore__lt=selected_product[0]["nutriscore"]
+        ).order_by('?').values(
             'product_name', 'nutriscore', "id", "url", "image_url",
-            "image_nut_url")[:5]
+            "image_nut_url")[:6]
         return substitute
 
     def get_all_by_term(self, term):
