@@ -28,8 +28,8 @@
         {% block nav %}
             <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
                 <div class="container">
-                    <a class="navbar-brand" href="#">
-                      <img src="{% static 'dist/assets/img/logo-100.png' %}" alt="">
+                    <a class="navbar-brand" href="{% url 'pages:index' %}">
+                      <img src="{% static 'dist/assets/img/logo-100.png' %}" alt="Pur beurre">
                     </a>
                     <a class="navbar-brand js-scroll-trigger"
                        href="{% url 'pages:index' %}">Pur Beurre</a><button
@@ -69,30 +69,8 @@
         {% block content %}
         {% endblock content %}
 
-        {% block contact %}
         <!-- Contact-->
-        <section id="contact" class="page-section">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-lg-8 text-center">
-                <h2 class="mt-0">Contactez-nous !</h2>
-                <hr class="divider my-4">
-                <p class="text-muted mb-5">Nous espérons répondre à vos demandes</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-4 ml-auto text-center mb-5 mb-lg-0">
-                <i class="fas fa-phone fa-3x mb-3 text-muted"></i>
-                <div>+33 (0) 1 23 45 67 89</div>
-              </div>
-              <div class="col-lg-4 mr-auto text-center">
-                <i class="fas fa-envelope fa-3x mb-3 text-muted"></i>
-                <!-- Make sure to change the email address in anchor text AND the link below! -->
-                <a class="d-block" href="mailto:contact@yourwebsite.com">contact@yourwebsite.com</a>
-              </div>
-            </div>
-          </div>
-        </section>
+        {% block contact %}
         {% endblock contact %}
 
         {% block scripts %}
@@ -107,10 +85,11 @@
             <script src="{% static 'js/autocomplete.js' %}"></script>
         {% endblock scripts %}
 
+        {% block mentions %}
+        {% endblock mentions %}
 
         {% block footer %}
         <!-- Footer-->
-
         <footer class="bg-light py-5">
             <div class="container">
                 <div class="row">
