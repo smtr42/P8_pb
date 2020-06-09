@@ -1,16 +1,28 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>SignUpPage</title>
 </head>
 <body>
-<h2>Sign up</h2>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Sign up</button>
-    </form>
+{% block header %}
+    <header class="masthead">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center justify-content-center ">
+                <div class="col-lg-8 align-self-baseline">
+                    <p class="text-white font-weight-light mb-5">
+                    <form method="post">
+                      {% csrf_token %}
+                      {{ form.as_p }}
+                      <button type="submit">Sign up</button>
+                    </form>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock header %}
+
 </body>
 </html>

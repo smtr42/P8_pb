@@ -8,3 +8,9 @@ class HomePageView(TemplateView):
 
 class NoticePageView(TemplateView):
     template_name = 'pages/notice.html'
+
+class MyFood(TemplateView):
+    template_name = 'pages/myfood.html'
+
+class Profile(TemplateView):
+    template_name = 'pages/profile.html'
