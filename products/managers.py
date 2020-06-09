@@ -70,13 +70,8 @@ class ProductManager(models.Manager):
         ).order_by('?').values(
             'product_name', 'nutriscore', "id", "url", "image_url",
             "image_nut_url")[:6]
-        return substitute
+        return substitute, selected_product
 
-    def get_all_by_term(self, term):
-        return self.filter(product_name__icontains=term)
 
-    def get_substitute_from_product(self):
-        pass
-
-    def get_product_from_selection(self):
+    def save_product(self):
         pass

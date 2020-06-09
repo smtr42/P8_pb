@@ -1,7 +1,8 @@
 from products.managers import ProductManager
 from products.forms import SearchForm
 from django.shortcuts import render
-from django.http import Http404
+from django.http import Http404, HttpResponse
+from django.contrib.auth.decorators import login_required
 
 
 # def search_product(request):
@@ -27,11 +28,17 @@ def sub_list(request):
     if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():
-            data = ProductManager.search_from_user_input(form.cleaned_data)
-            return render(request, 'products/sub_list.html', {"product": data})
+            substitute, selected_product = ProductManager.search_from_user_input(form.cleaned_data)
+            return render(request, 'products/sub_list.html', {"product": substitute, "searched": selected_product})
         else:
             print("form is not valid !")
             raise Http404
     else:
         form = SearchForm()
     return render(request, 'products/sub_list.html', {'form': form})
+
+@login_required
+def save(request, product_id):
+    ProductManager.save_product()
+    return HttpResponse(product_id)
+
