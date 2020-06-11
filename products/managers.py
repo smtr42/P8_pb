@@ -66,12 +66,12 @@ class ProductManager(models.Manager):
 
         substitute = product_model.objects.filter(
             categories__category_name=selected_product_category_name[0][
-                'categories__category_name'], nutriscore__lt=selected_product[0]["nutriscore"]
-        ).order_by('?').values(
+                'categories__category_name'],
+            nutriscore__lt=selected_product[0]["nutriscore"]
+        ).order_by("nutriscore").values(
             'product_name', 'nutriscore', "id", "url", "image_url",
             "image_nut_url")[:6]
         return substitute, selected_product
-
-
-    def save_product(self):
-        pass
+    @staticmethod
+    def save_product(product_id):
+        return product_id

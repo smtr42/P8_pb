@@ -28,8 +28,11 @@ def sub_list(request):
     if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():
-            substitute, selected_product = ProductManager.search_from_user_input(form.cleaned_data)
-            return render(request, 'products/sub_list.html', {"product": substitute, "searched": selected_product})
+            substitute, selected_product = ProductManager.search_from_user_input(
+                form.cleaned_data)
+            return render(request, 'products/sub_list.html',
+                          {"product": substitute,
+                           "searched": selected_product})
         else:
             print("form is not valid !")
             raise Http404
@@ -37,8 +40,12 @@ def sub_list(request):
         form = SearchForm()
     return render(request, 'products/sub_list.html', {'form': form})
 
+
 @login_required
 def save(request, product_id):
-    ProductManager.save_product()
-    return HttpResponse(product_id)
+    product_id = ProductManager.save_product(product_id)
+    return render(request, 'products/sub_list.html', product_id)
 
+
+def fav(request):
+    pass

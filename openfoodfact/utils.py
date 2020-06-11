@@ -2,7 +2,7 @@
 import requests
 
 keys = ['id', 'product_name_fr', 'nutrition_grade_fr',
-                     'url', 'image_front_url', 'image_ingredients_url',]
+        'url', 'image_front_url', 'image_ingredients_url', ]
 
 
 class RequestData:
@@ -76,6 +76,7 @@ class Cleaner:
         self._dict_data = {}
         self.list_of_dictio = []
         self.barcode_list = []
+        self.name_list = []
 
     def filter_product(self):
         """Get the data from json files and run checks"""
@@ -93,12 +94,20 @@ class Cleaner:
             if x not in element or element[x] == "" \
                     or len(element["id"]) != 13:
                 return False
+
         barcode = int(element['id'])
-        if barcode not in set(self.barcode_list):
-            self.barcode_list.append(barcode)
-        else:
+        if barcode in self.barcode_list:
             return False
+        else:
+            self.barcode_list.append(barcode)
+
+        name = element['product_name_fr']
+        if name in self.name_list:
+            return False
+        else:
+            self.name_list.append(name)
         return True
+
 
 def req_and_clean(page_size):
     """Main function to instantiate and launch operations."""
