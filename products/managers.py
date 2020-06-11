@@ -4,7 +4,7 @@ from django.apps import apps
 from django.db import IntegrityError
 from django.core.management.color import no_style
 from django.db import connection
-
+from django.shortcuts import get_object_or_404
 
 class ProductManager(models.Manager):
     """Custom Object"""
@@ -72,6 +72,13 @@ class ProductManager(models.Manager):
             'product_name', 'nutriscore', "id", "url", "image_url",
             "image_nut_url")[:6]
         return substitute, selected_product
+
     @staticmethod
-    def save_product(product_id):
-        return product_id
+    def save_product(request, product_id):
+        favorite_model = apps.get_model('products', 'Favorite')
+        product_model = apps.get_model('products', 'Product')
+
+        food_item = get_object_or_404(product_model, id=product_id)
+        fav = favorite_model()
+        fav.substitute.add(food_item)
+        return request

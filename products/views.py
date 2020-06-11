@@ -43,7 +43,7 @@ def sub_list(request):
 
 @login_required
 def save(request, product_id):
-    product_id = ProductManager.save_product(product_id)
+    request = ProductManager.save_product(request, product_id)
     return render(request, 'products/sub_list.html', product_id)
 
 
