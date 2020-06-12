@@ -78,7 +78,10 @@ class ProductManager(models.Manager):
         favorite_model = apps.get_model('products', 'Favorite')
         product_model = apps.get_model('products', 'Product')
 
+        favorite_model.objects.create(user=request.user, product="", substitute="")
+
         food_item = get_object_or_404(product_model, id=product_id)
+
         fav = favorite_model()
         fav.substitute.add(food_item)
         return request
