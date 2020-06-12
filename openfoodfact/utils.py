@@ -2,7 +2,8 @@
 import requests
 
 keys = ['id', 'product_name_fr', 'nutrition_grade_fr',
-                     'url', 'image_front_url', 'image_ingredients_url', ]
+        'url', 'image_front_url', 'image_ingredients_url', ]
+
 
 class RequestData:
     """The class fetch the data and save it in to a json file."""
@@ -14,10 +15,10 @@ class RequestData:
         self.list_prod = []
         self.data = {}
 
-    def exec(self):
+    def exec(self, page_size):
         """Main public function executing all necessary privates functions."""
-        self._fetch_category()
-        data = self._fetch_products()
+        self.list_cat = self._fetch_category()
+        data = self._fetch_products(page_size)
         return data
 
     def _fetch_category(self):
@@ -26,16 +27,16 @@ class RequestData:
         try:
             response = self._req(self.cat_url)
             data = response.json()
-            self.list_cat = [i['name'] for i in data['tags']]
-            self.list_cat = self.list_cat[:17]
+            list_cat = [i['name'] for i in data['tags']][:17]
             self.data = {}
+            return list_cat
 
         except requests.exceptions.Timeout as t:
             print("Request Timeout, please retry : ", t)
         except requests.exceptions.RequestException as err:
             print("Something went bad, please retry : :", err)
 
-    def _fetch_products(self):
+    def _fetch_products(self, page_size):
         """Request the products in respect for the categories loaded"""
         print("Getting Products from API in respect to the"
               " Categories previously got")
@@ -51,12 +52,11 @@ class RequestData:
                       "tag_contains_0": "contains",
                       # Number of articles per page
                       # Min content 20, Max content 1000
-                      "page_size": 500,
+                      "page_size": page_size,
                       # The API response in JSON
                       "json": 1}
             response = self._req(self.search_url, param=config)
-            res = response.json()
-            all_products[category] = res
+            all_products[category] = response.json()
         return all_products
 
     def _req(self, url, param=None):
@@ -76,6 +76,7 @@ class Cleaner:
         self._dict_data = {}
         self.list_of_dictio = []
         self.barcode_list = []
+        self.name_list = []
 
     def filter_product(self):
         """Get the data from json files and run checks"""
@@ -93,17 +94,25 @@ class Cleaner:
             if x not in element or element[x] == "" \
                     or len(element["id"]) != 13:
                 return False
+
         barcode = int(element['id'])
-        if barcode not in set(self.barcode_list):
-            self.barcode_list.append(barcode)
-        else:
+        if barcode in self.barcode_list:
             return False
+        else:
+            self.barcode_list.append(barcode)
+
+        name = element['product_name_fr']
+        if name in self.name_list:
+            return False
+        else:
+            self.name_list.append(name)
         return True
 
-def req_and_clean():
+
+def req_and_clean(page_size):
     """Main function to instantiate and launch operations."""
     r = RequestData()
-    data = r.exec()
+    data = r.exec(page_size)
     c = Cleaner(data)
     data = c.filter_product()
     return data

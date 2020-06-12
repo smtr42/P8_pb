@@ -1,5 +1,5 @@
 <h1 align="center">
-  Project 8 - Pur Beurre
+  [WIP] Project 8 - Pur Beurre
 </h1>
 
 <p align="center">
@@ -70,13 +70,30 @@ The goal is to learn about:
 ### Installation
 I used Python 3.7.7
 
-1. Clone the repo
-```sh
+*  Clone the repo
+```shell script
 git clone https://github.com/smtr42/p8_purb
 ```
-2. Install required dependencies
-```sh
+*  Install required dependencies
+```shell script
 pip install -r requirements.txt
+```
+*  Create database
+```shell script
+python manage.py migrate
+```
+*  Use a custom command to populate database
+```shell script
+python manage.py build
+```
+*  Create bootstrap files in `static/`
+```shell script
+npm install
+npm run build
+```
+*  Launch server
+```shell script
+python manage.py runserver
 ```
 
 

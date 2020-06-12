@@ -1,10 +1,10 @@
 """Database operations with a global scale."""
 from django.db import models
 from django.apps import apps
-from django.shortcuts import get_list_or_404
 from django.db import IntegrityError
 from django.core.management.color import no_style
 from django.db import connection
+from django.shortcuts import get_object_or_404
 
 class ProductManager(models.Manager):
     """Custom Object"""
@@ -42,7 +42,9 @@ class ProductManager(models.Manager):
         product_model.objects.all().delete()
         favorite_model.objects.all().delete()
         sequence_sql = connection.ops.sequence_reset_sql(no_style(),
-                                                         [product_model, category_model, favorite_model])
+                                                         [product_model,
+                                                          category_model,
+                                                          favorite_model])
         with connection.cursor() as cursor:
             for sql in sequence_sql:
                 cursor.execute(sql)
@@ -53,67 +55,33 @@ class ProductManager(models.Manager):
         # https://docs.djangoproject.com/fr/3.0/ref/models/querysets/#field-lookups
 
         product_model = apps.get_model('products', 'Product')
+        name = data['product']
 
         selected_product = (product_model.objects.filter(
-            product_name__iexact=data['product']).values())
+            product_name__iexact=name).values())
+        selected_product_category_name = product_model.objects.filter(
+            product_name__iexact=name).values('categories__category_name',
+                                              "id")
+        print(selected_product[0]["nutriscore"])
 
-        # substitutes = (product_model.objects.filter(
-        #     categories__id=selected_product[0][
-        #         'category'])
-        #                    .order_by('nutriscore', 'popularity').values(
-        #     'name', 'nutriscore', 'pk', 'img_url')[:12])
+        substitute = product_model.objects.filter(
+            categories__category_name=selected_product_category_name[0][
+                'categories__category_name'],
+            nutriscore__lt=selected_product[0]["nutriscore"]
+        ).order_by("nutriscore").values(
+            'product_name', 'nutriscore', "id", "url", "image_url",
+            "image_nut_url")[:6]
+        return substitute, selected_product
 
-        # if selected_product.nutriscore == "a":
-        #     print("nutriscore = A")
-        # substitute_list = get_list_or_404(
-        #     product_model.objects.order_by('nutriscore'),
-        #                 categories=product_model.categories,
-        #                 nutriscore__gt="B")
+    @staticmethod
+    def save_product(request, product_id):
+        favorite_model = apps.get_model('products', 'Favorite')
+        product_model = apps.get_model('products', 'Product')
 
-        # dictio = {"product": selected_product}
+        favorite_model.objects.create(user=request.user, product="", substitute="")
 
-        return selected_product
+        food_item = get_object_or_404(product_model, id=product_id)
 
-    #         search_product = (Product.objects.filter(name__icontains=input)
-    #                           .order_by('nutriscore').values('name', 'category', 'img_url', 'pk')[:1])
-    #         if search_product:
-    #             products = (Product.objects.filter(category__id=search_product[0]['category'])
-    #                         .order_by('nutriscore', 'popularity').values('name', 'nutriscore', 'pk', 'img_url')[:12])
-    #             search_product_status = True
-    #             search_product = search_product[0]
-
-    def get_all_by_term(self, term):
-        return self.filter(product_name__icontains=term)
-
-    # select_related
-
-    # Sélectionner les produits ayant un meilleur nutriscore
-    # et qui ont des catégories en commun, ordonnés par nombre
-    # décroissant de catégories partagées.
-    #
-    #         rows = self.database.query(
-    #             "SELECT "
-    #             "    P.id as Id, "
-    #             "    P.product_name as Name, "
-    #             "    P.nutriscore as Nutriscore "
-    #             "FROM Product P "
-    #             "INNER JOIN Product_Category AS PC "
-    #             "    ON P.id = PC.id_product "
-    #             "INNER JOIN Product_Category AS PC2 "
-    #             "    ON P.id = PC2.id_product "
-    #             "INNER JOIN Product_Category AS PC3 "
-    #             "    ON PC2.id_category = PC3.id_category "
-    #             "WHERE P.nutriscore in ('a', 'b') "
-    #             "AND PC.id_category = :cat_id "
-    #             "AND PC3.id_product = :p_id "
-    #             "GROUP BY P.id, P.product_name, P.nutriscore "
-    #             "ORDER BY P.nutriscore ASC, COUNT(PC2.id_category) DESC "
-    #             "LIMIT 5 ",
-    #             cat_id=id_category,
-    #             p_id=id_search_product)
-
-    def get_substitute_from_product(self):
-        pass
-
-    def get_product_from_selection(self):
-        pass
+        fav = favorite_model()
+        fav.substitute.add(food_item)
+        return request
