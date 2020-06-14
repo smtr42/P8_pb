@@ -53,7 +53,7 @@
                             {% if user.is_authenticated %}
 
                                 <a href="{% url 'pages:profile' %}"><i class="fas fa-user fa-fw fa-2x"></i></a>
-                                <a href="{% url 'pages:myfood' %}"><i class="fas fa-carrot fa-fw fa-2x"></i></a>
+                                <a href="{% url 'products:fav' %}"><i class="fas fa-carrot fa-fw fa-2x"></i></a>
                                 <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw fa-2x"></i></a>
                             {% else %}
                                 <a href="{% url 'users:signup' %}"><i class="fas fa-user-plus fa-fw fa-2x"></i></a>

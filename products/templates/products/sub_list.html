@@ -48,10 +48,22 @@
 
                         <h3 class="h4 mb-2">{{ element.product_name }}</h3>
                         {% if user.is_authenticated %}
-<!--                            <a href="{% url 'products:save' element.id %}"><i class="far fa-save fa-fw fa-2x"></i></a>-->
-                            <form method="POST" action="{% url 'products:save' element.id %}">
+                            <form method="POST" action="{% url 'products:save' %}">
+                                {% csrf_token %}
+                                {% for element in searched %}
+                                <input type="hidden" name="product-searched-name" value="{{element.product_name}}" required="required">
+                                <input type="hidden" name="product-searched-id" value="{{element.id}}" required="required">
+                                <input type="hidden" name="product-searched-barcode" value="{{element.barcode}}" required="required">
+                                <input type="hidden" name="product-searched-nutriscore" value="{{element.nutriscore}}" required="required">
 
-                                 <button type="submit" class="btn btn-primary"><i class="far fa-save fa-fw fa-2x" ></i></button>
+                                {% endfor %}
+                                {% for element in product %}
+                                <input type="hidden" name="substitute-searched-name" value="{{element.product_name}}" required="required">
+                                <input type="hidden" name="substitute-searched-id" value="{{element.id}}" required="required">
+                                <input type="hidden" name="substitute-searched-barcode" value="{{element.barcode}}" required="required">
+                                <input type="hidden" name="substitute-searched-nutriscore" value="{{element.nutriscore}}" required="required">
+                                {% endfor %}
+                                <button type="submit" class="btn btn-primary" ><i class="far fa-save fa-fw fa-2x" ></i></button>
                             </form>
                         {% endif %}
                     </div>

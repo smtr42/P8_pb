@@ -42,10 +42,19 @@ def sub_list(request):
 
 
 @login_required
-def save(request, product_id):
-    request = ProductManager.save_product(request, product_id)
-    return render(request, 'products/sub_list.html', product_id)
+def save(request):
+    if request.method == 'POST':
+        data = request.POST
+        ProductManager.save_product(request, data)
+        favs = ProductManager.get_fav(request)
+
+        return render(request, 'pages/myfood.html', {"favorites": favs})
+    else:
+        raise Http404
 
 
+@login_required
 def fav(request):
-    pass
+    favs = ProductManager.get_fav(request)
+
+    return render(request, 'pages/myfood.html', {"favorites": favs})
