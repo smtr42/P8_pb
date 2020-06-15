@@ -6,6 +6,7 @@ from django.core.management.color import no_style
 from django.db import connection
 from django.shortcuts import get_object_or_404
 
+
 class ProductManager(models.Manager):
     """Custom Object"""
 
@@ -74,14 +75,44 @@ class ProductManager(models.Manager):
         return substitute, selected_product
 
     @staticmethod
-    def save_product(request, product_id):
+    def save_product(request, data):
         favorite_model = apps.get_model('products', 'Favorite')
         product_model = apps.get_model('products', 'Product')
 
-        favorite_model.objects.create(user=request.user, product="", substitute="")
+        product = product_model.objects.get(id=data["product-searched-id"])
+        sub = product_model.objects.get(id=data["substitute-searched-id"])
 
-        food_item = get_object_or_404(product_model, id=product_id)
+        favorite_model.objects.create(user=request.user, product=product,
+                                      substitute=sub)
 
-        fav = favorite_model()
-        fav.substitute.add(food_item)
-        return request
+    @staticmethod
+    def get_fav(request):
+        product_model = apps.get_model('products', 'Product')
+        favorite_model = apps.get_model('products', 'Favorite')
+        qs_favs = favorite_model.objects.all().filter(
+            user=request.user).values(
+            'product_id', "substitute_id")
+        breakpoint()
+        favorite_list = []
+        final_dict = {}
+
+        for element in qs_favs:
+            list_of_subs_for_product = favorite_model.objects.all().filter(user=request.user,
+                                                product_id=element[
+                                                    "product_id"]).values(
+                "substitute_id")
+
+        # product_searched = product_model.objects.filter(
+        #     id=element["product_id"]).values('product_name',
+        #                                      'nutriscore', "id", "url",
+        #                                      "image_url",
+        #                                      "image_nut_url")
+        for element in qs_favs:
+            final_dict["searched"] = ""
+            favorite_list.append(product_model.objects.filter(
+                id=element["substitute_id"]).values('product_name',
+                                                    'nutriscore', "id", "url",
+                                                    "image_url",
+                                                    "image_nut_url"))
+
+            return favorite_list
