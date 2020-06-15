@@ -30,9 +30,15 @@ def sub_list(request):
         if form.is_valid():
             substitute, selected_product = ProductManager.search_from_user_input(
                 form.cleaned_data)
+            mylist = zip(substitute, selected_product)
+            context = {
+                'mylist': mylist,
+            }
+
             return render(request, 'products/sub_list.html',
                           {"product": substitute,
-                           "searched": selected_product})
+                           "searched": selected_product},
+                          context)
         else:
             print("form is not valid !")
             raise Http404
@@ -47,7 +53,6 @@ def save(request):
         data = request.POST
         ProductManager.save_product(request, data)
         favs = ProductManager.get_fav(request)
-
         return render(request, 'pages/myfood.html', {"favorites": favs})
     else:
         raise Http404
@@ -56,5 +61,14 @@ def save(request):
 @login_required
 def fav(request):
     favs = ProductManager.get_fav(request)
-
     return render(request, 'pages/myfood.html', {"favorites": favs})
+
+
+def detail(request):
+    if request.method == 'POST':
+        data = request.POST
+        product_detail = ProductManager.get_detail(data)
+        return render(request, 'pages/detail.html',
+                      {"product": product_detail})
+    else:
+        raise Http404

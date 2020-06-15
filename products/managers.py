@@ -72,6 +72,7 @@ class ProductManager(models.Manager):
         ).order_by("nutriscore").values(
             'product_name', 'nutriscore', "id", "url", "image_url",
             "image_nut_url")[:6]
+
         return substitute, selected_product
 
     @staticmethod
@@ -92,27 +93,20 @@ class ProductManager(models.Manager):
         qs_favs = favorite_model.objects.all().filter(
             user=request.user).values(
             'product_id', "substitute_id")
-        breakpoint()
         favorite_list = []
-        final_dict = {}
 
         for element in qs_favs:
-            list_of_subs_for_product = favorite_model.objects.all().filter(user=request.user,
-                                                product_id=element[
-                                                    "product_id"]).values(
-                "substitute_id")
-
-        # product_searched = product_model.objects.filter(
-        #     id=element["product_id"]).values('product_name',
-        #                                      'nutriscore', "id", "url",
-        #                                      "image_url",
-        #                                      "image_nut_url")
-        for element in qs_favs:
-            final_dict["searched"] = ""
             favorite_list.append(product_model.objects.filter(
                 id=element["substitute_id"]).values('product_name',
                                                     'nutriscore', "id", "url",
                                                     "image_url",
                                                     "image_nut_url"))
+        return favorite_list
 
-            return favorite_list
+    @staticmethod
+    def get_detail(data):
+        product_model = apps.get_model('products', 'Product')
+        qs_product = product_model.objects.filter(id=data["product-id"]).values(
+            'product_name', 'nutriscore', "id", "url", "image_url",
+            "image_nut_url", "barcode")
+        return qs_product
