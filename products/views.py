@@ -30,15 +30,9 @@ def sub_list(request):
         if form.is_valid():
             substitute, selected_product = ProductManager.search_from_user_input(
                 form.cleaned_data)
-            mylist = zip(substitute, selected_product)
-            context = {
-                'mylist': mylist,
-            }
-
             return render(request, 'products/sub_list.html',
                           {"product": substitute,
-                           "searched": selected_product},
-                          context)
+                           "searched": selected_product})
         else:
             print("form is not valid !")
             raise Http404

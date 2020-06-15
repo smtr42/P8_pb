@@ -63,12 +63,10 @@
                                 <input type="hidden" name="product-searched-nutriscore" value="{{element.nutriscore}}" >
 
                                 {% endfor %}
-                                {% for element in product %}
                                 <input type="hidden" name="substitute-searched-name" value="{{element.product_name}}">
                                 <input type="hidden" name="substitute-searched-id" value="{{element.id}}" >
                                 <input type="hidden" name="substitute-searched-barcode" value="{{element.barcode}}">
                                 <input type="hidden" name="substitute-searched-nutriscore" value="{{element.nutriscore}}">
-                                {% endfor %}
                                 <button type="submit" class="btn btn-primary" form="{{element.id}}"><i class="far fa-save fa-fw fa-2x" ></i></button>
                             </form>
                         {% endif %}
