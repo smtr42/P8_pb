@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
-{% load static%}
+{% load static %}
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -24,7 +24,7 @@
                                   method="POST">
                                 {% csrf_token %}
                                 <div class="form-group">
-                                    <input id="product"
+                                    <input id="product-input-header"
                                            type="text"
                                            class="form-control product-input"
                                            name="product"
@@ -102,8 +102,6 @@
           </div>
         </section>
         {% endblock contact %}
-
-
 
 </body>
 </html>
