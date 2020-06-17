@@ -1,8 +1,14 @@
 """Useful command to download and clean data from OpenFoodfact."""
 import requests
 
-keys = ['id', 'product_name_fr', 'nutrition_grade_fr',
-        'url', 'image_front_url', 'image_ingredients_url', ]
+keys = [
+    "id",
+    "product_name_fr",
+    "nutrition_grade_fr",
+    "url",
+    "image_front_url",
+    "image_ingredients_url",
+]
 
 
 class RequestData:
@@ -27,7 +33,7 @@ class RequestData:
         try:
             response = self._req(self.cat_url)
             data = response.json()
-            list_cat = [i['name'] for i in data['tags']][:17]
+            list_cat = [i["name"] for i in data["tags"]][:17]
             self.data = {}
             return list_cat
 
@@ -38,23 +44,26 @@ class RequestData:
 
     def _fetch_products(self, page_size):
         """Request the products in respect for the categories loaded"""
-        print("Getting Products from API in respect to the"
-              " Categories previously got")
+        print(
+            "Getting Products from API in respect to the" " Categories previously got"
+        )
         fields = ",".join(keys)
         all_products = {}
         for category in self.list_cat:
-            config = {"action": "process",
-                      # Get the result by category
-                      "tagtype_0": "categories",
-                      # the tag represents the article search
-                      'tag_0': category,
-                      'fields': fields,
-                      "tag_contains_0": "contains",
-                      # Number of articles per page
-                      # Min content 20, Max content 1000
-                      "page_size": page_size,
-                      # The API response in JSON
-                      "json": 1}
+            config = {
+                "action": "process",
+                # Get the result by category
+                "tagtype_0": "categories",
+                # the tag represents the article search
+                "tag_0": category,
+                "fields": fields,
+                "tag_contains_0": "contains",
+                # Number of articles per page
+                # Min content 20, Max content 1000
+                "page_size": page_size,
+                # The API response in JSON
+                "json": 1,
+            }
             response = self._req(self.search_url, param=config)
             all_products[category] = response.json()
         return all_products
@@ -81,7 +90,7 @@ class Cleaner:
     def filter_product(self):
         """Get the data from json files and run checks"""
         for category in self.list_cat:
-            for element in self.data[category]['products']:
+            for element in self.data[category]["products"]:
                 if self._data_exist(element):
                     self.list_of_dictio.append(element)
             self._dict_data[category] = self.list_of_dictio
@@ -91,17 +100,16 @@ class Cleaner:
     def _data_exist(self, element):
         """Run trough the data, if something's missing it's discarded."""
         for x in self.keys:
-            if x not in element or element[x] == "" \
-                    or len(element["id"]) != 13:
+            if x not in element or element[x] == "" or len(element["id"]) != 13:
                 return False
 
-        barcode = int(element['id'])
+        barcode = int(element["id"])
         if barcode in self.barcode_list:
             return False
         else:
             self.barcode_list.append(barcode)
 
-        name = element['product_name_fr']
+        name = element["product_name_fr"]
         if name in self.name_list:
             return False
         else:

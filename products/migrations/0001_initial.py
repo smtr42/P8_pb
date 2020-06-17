@@ -15,32 +15,82 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('category_name', models.CharField(max_length=255, unique=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("category_name", models.CharField(max_length=255, unique=True)),
             ],
         ),
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('barcode', models.CharField(max_length=13, unique=True)),
-                ('product_name', models.CharField(max_length=255)),
-                ('nutriscore', models.CharField(max_length=1)),
-                ('url', models.CharField(max_length=255)),
-                ('image_url', models.CharField(max_length=255)),
-                ('image_nut_url', models.CharField(max_length=255)),
-                ('categories', models.ManyToManyField(related_name='products', to='products.Category')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("barcode", models.CharField(max_length=13, unique=True)),
+                ("product_name", models.CharField(max_length=255)),
+                ("nutriscore", models.CharField(max_length=1)),
+                ("url", models.CharField(max_length=255)),
+                ("image_url", models.CharField(max_length=255)),
+                ("image_nut_url", models.CharField(max_length=255)),
+                (
+                    "categories",
+                    models.ManyToManyField(
+                        related_name="products", to="products.Category"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Favorite',
+            name="Favorite",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='favorites_as_product', to='products.Product')),
-                ('substitute', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='fav_substitute', to='products.Product')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='favorites', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="favorites_as_product",
+                        to="products.Product",
+                    ),
+                ),
+                (
+                    "substitute",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="fav_substitute",
+                        to="products.Product",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="favorites",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]
