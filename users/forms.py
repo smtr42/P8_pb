@@ -5,11 +5,10 @@ from django.contrib.auth import get_user_model
 
 class UserCreationForm(forms.UserCreationForm):
     """Custom creation form."""
-
     class Meta(forms.UserCreationForm.Meta):
         """Override the default user with custom user."""
         model = get_user_model()
-        fields = ('username', 'email', 'first_name')
+        fields = ('email', 'first_name')
 
 
 class UserChangeForm(forms.UserChangeForm):
