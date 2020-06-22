@@ -41,15 +41,16 @@ class ProfileViewTest(TestCase):
 
 
 class SaveProductTemplateViewTest(TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpTestData(cls):
         # Create two users
-        test_user1 = User.objects.create_user(
+        cls.test_user1 = User.objects.create_user(
             username="testuser1", email="test@test.com", password="1X<ISRUkw+tuK"
         )
 
         # Create a product
-        test_category = Category.objects.create(category_name="Viandes")
-        test_product = Product.objects.create(
+        cls.test_category = Category.objects.create(category_name="Viandes")
+        cls.test_product = Product.objects.create(
             barcode=3449865294044,
             product_name="Rosette",
             nutriscore="e",
@@ -57,15 +58,39 @@ class SaveProductTemplateViewTest(TestCase):
             image_url="https://static.openfoodfacts.org/images/products/344/986/529/4044/front_fr.28.400.jpg",
             image_nut_url="https://static.openfoodfacts.org/images/products/344/986/529/4044/ingredients_fr.12.400.jpg",
         )
-        test_product.categories.add(test_category)
+        cls.test_product.categories.add(cls.test_category)
 
-
+        cls.test_product2 = Product.objects.create(
+            barcode=9999999999999,
+            product_name="NESQUIK Moins de Sucres Poudre Cacaotée boîte",
+            nutriscore="a",
+            url="https://test",
+            image_url="https://test",
+            image_nut_url="https://test",
+        )
 
     def test_user_exists(self):
         user = User.objects.get(username="testuser1")
         self.assertEqual(user.username, "testuser1")
 
-    # def test_redirect_if_not_logged_in(self):
-    #     response = self.client.get(reverse("products:save"))
-    #     self.assertRedirects(response, "/users/login/?next=/products/save")
+    def test_redirect_if_not_logged_in(self):
+        response = self.client.get(reverse("products:save"))
+        self.assertRedirects(response, "/users/login/?next=/products/save")
+
+    def test_can_send_message(self):
+        product = {
+            "product-searched-name": ["Rosette"],
+            "product-searched-id": ["2"],
+            "product-searched-barcode": ["3449865294044"],
+            "product-searched-nutriscore": ["e"],
+            "substitute-searched-name": [
+                "NESQUIK Moins de Sucres Poudre Cacaotée boîte"
+            ],
+            "substitute-searched-id": ["3"],
+            "substitute-searched-barcode": [""],
+            "substitute-searched-nutriscore": ["a"],
+        }
+        self.client.force_login(user=self.test_user1)
+        response = self.client.post(reverse("products:save"), data=product)
+        self.assertEqual(Favorite.objects.count(), 1)
 

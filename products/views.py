@@ -44,7 +44,7 @@ def sub_list(request):
     return render(request, "products/sub_list.html", {"form": form})
 
 
-@login_required(login_url='/users/login/')
+@login_required(login_url="/users/login/")
 def save(request):
     if request.method == "POST":
         data = request.POST
@@ -55,7 +55,7 @@ def save(request):
         raise Http404
 
 
-@login_required(login_url='/users/login/')
+@login_required(login_url="/users/login/")
 def fav(request):
     favs = ProductManager.get_fav(request)
     return render(request, "pages/myfood.html", {"favorites": favs})

@@ -99,4 +99,3 @@ class ProductModeltest(TestCase):
         product = Product.objects.get(id=1)
         expected_object_name = product.product_name
         self.assertEquals(expected_object_name, str(product))
-

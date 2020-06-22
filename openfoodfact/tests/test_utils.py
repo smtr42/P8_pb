@@ -82,4 +82,3 @@ def test_category_request():
             "Epicerie",
             "Petit-déjeuners",
         ]
-
