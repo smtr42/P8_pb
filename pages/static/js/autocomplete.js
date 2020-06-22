@@ -6,5 +6,5 @@ $(".product-input").autocomplete({
 
 $("#product-input-header").autocomplete({
     source: autocomplete_url,
-    minLength: 5
+    minLength: 3
 });
