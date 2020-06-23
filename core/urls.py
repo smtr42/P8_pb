@@ -17,11 +17,10 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-        path('', include('pages.urls')),
-    path('users/', include('users.urls')),
-    path('users/', include('django.contrib.auth.urls')),
-    path('products/', include('products.urls')),
-    path('autocomplete/', include("autocomplete.urls",
-                                  namespace="autocomplete")),
+    path("admin/", admin.site.urls),
+    path("", include("pages.urls")),
+    path("users/", include("users.urls")),
+    path("users/", include("django.contrib.auth.urls")),
+    path("products/", include("products.urls")),
+    path("autocomplete/", include("autocomplete.urls", namespace="autocomplete")),
 ]

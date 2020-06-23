@@ -7,6 +7,7 @@ from users.forms import UserChangeForm, UserCreationForm
 
 class UserAdmin(BaseUserAdmin):
     """Update admin.py to use custom user model."""
+
     model = User
     form = UserChangeForm
     add_form = UserCreationForm

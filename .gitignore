@@ -55,6 +55,7 @@ coverage.xml
 # Translations
 *.mo
 *.pot
+.vscode/
 
 # Django stuff:
 *.log
@@ -132,3 +133,5 @@ dmypy.json
 # node package
 static/node_modules/
 node_modules/
+node_modules
+static/node_modules

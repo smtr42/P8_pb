@@ -8,8 +8,9 @@ class UserCreationForm(forms.UserCreationForm):
 
     class Meta(forms.UserCreationForm.Meta):
         """Override the default user with custom user."""
+
         model = get_user_model()
-        fields = ('username', 'email', 'first_name')
+        fields = ("email", "username")
 
 
 class UserChangeForm(forms.UserChangeForm):
@@ -17,5 +18,6 @@ class UserChangeForm(forms.UserChangeForm):
 
     class Meta(forms.UserChangeForm.Meta):
         """Override the default user with custom user."""
+
         model = get_user_model()
         fields = forms.UserChangeForm.Meta.fields
