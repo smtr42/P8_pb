@@ -6,6 +6,6 @@ app_name = "pages"
 urlpatterns = [
     path("", HomePageView.as_view(), name="index"),
     path("notice", NoticePageView.as_view(), name="notice"),
-    path("profile", MyFood.as_view(), name="profile"),
-    path("myfood", Profile.as_view(), name="myfood"),
+    path("profile", Profile, name="profile"),
+    path("myfood", MyFood, name="myfood"),
 ]

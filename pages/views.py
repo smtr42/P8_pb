@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 from django.views.generic import TemplateView
 
 
@@ -10,9 +12,12 @@ class NoticePageView(TemplateView):
     template_name = "pages/notice.html"
 
 
+@login_required(login_url="/users/login/")
 class MyFood(TemplateView):
     template_name = "pages/myfood.html"
 
 
-class Profile(TemplateView):
-    template_name = "pages/profile.html"
+@login_required(login_url="/users/login/")
+def Profile(request):
+    user = request.user
+    return render(request, "pages/account.html", {"user": user})
