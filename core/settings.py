@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
     "openfoodfact.apps.OpenfoodfactConfig",
     "products.apps.ProductsConfig",
     "users.apps.UsersConfig",
@@ -128,3 +131,14 @@ LOGIN_REDIRECT_URL = "pages:index"
 LOGOUT_REDIRECT_URL = "pages:index"
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"  # ou "email" ou "username"
+# https://django-allauth.readthedocs.io/en/latest/configuration.html
+ACCOUNT_UNIQUE_EMAIL = True
+# https://django-allauth.readthedocs.io/en/latest/configuration.html
+ACCOUNT_EMAIL_REQUIRED = True
