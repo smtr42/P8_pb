@@ -1,5 +1,6 @@
 """Custom manage.py command."""
 from django.core.management.base import BaseCommand
+
 from openfoodfact.utils import req_and_clean
 from products.models import Product
 

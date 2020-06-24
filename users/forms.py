@@ -1,6 +1,5 @@
 """Define forms and specify custom User model."""
-from django.contrib.auth import forms
-from django.contrib.auth import get_user_model
+from django.contrib.auth import forms, get_user_model
 
 
 class UserCreationForm(forms.UserCreationForm):

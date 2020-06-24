@@ -1,8 +1,10 @@
 """Admin specifications to use the User custom model."""
 from django.contrib import admin
-from .models import User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+
 from users.forms import UserChangeForm, UserCreationForm
+
+from .models import User
 
 
 class UserAdmin(BaseUserAdmin):

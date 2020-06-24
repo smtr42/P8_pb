@@ -1,5 +1,6 @@
-from django.db import models
 from django.conf import settings
+from django.db import models
+
 from . import managers
 
 
@@ -35,10 +36,14 @@ class Favorite(models.Model):
     """
 
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name="favorites", on_delete=models.CASCADE,
+        settings.AUTH_USER_MODEL,
+        related_name="favorites",
+        on_delete=models.CASCADE,
     )
     product = models.ForeignKey(
-        "Product", related_name="favorites_as_product", on_delete=models.CASCADE,
+        "Product",
+        related_name="favorites_as_product",
+        on_delete=models.CASCADE,
     )
     substitute = models.ForeignKey(
         "Product", related_name="fav_substitute", on_delete=models.CASCADE,

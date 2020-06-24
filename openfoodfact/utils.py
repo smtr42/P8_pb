@@ -45,7 +45,8 @@ class RequestData:
     def _fetch_products(self, page_size):
         """Request the products in respect for the categories loaded"""
         print(
-            "Getting Products from API in respect to the" " Categories previously got"
+            "Getting Products from API in respect to the"
+            " Categories previously got"
         )
         fields = ",".join(keys)
         all_products = {}
@@ -100,7 +101,11 @@ class Cleaner:
     def _data_exist(self, element):
         """Run trough the data, if something's missing it's discarded."""
         for x in self.keys:
-            if x not in element or element[x] == "" or len(element["id"]) != 13:
+            if (
+                x not in element
+                or element[x] == ""
+                or len(element["id"]) != 13
+            ):
                 return False
 
         barcode = int(element["id"])

@@ -1,9 +1,7 @@
 """Database operations with a global scale."""
-from django.db import models
 from django.apps import apps
-from django.db import IntegrityError
 from django.core.management.color import no_style
-from django.db import connection
+from django.db import IntegrityError, connection, models
 from django.shortcuts import get_object_or_404
 
 
@@ -73,7 +71,12 @@ class ProductManager(models.Manager):
             )
             .order_by("nutriscore")
             .values(
-                "product_name", "nutriscore", "id", "url", "image_url", "image_nut_url"
+                "product_name",
+                "nutriscore",
+                "id",
+                "url",
+                "image_url",
+                "image_nut_url",
             )[:6]
         )
 
@@ -104,7 +107,9 @@ class ProductManager(models.Manager):
 
         for element in qs_favs:
             favorite_list.append(
-                product_model.objects.filter(id=element["substitute_id"]).values(
+                product_model.objects.filter(
+                    id=element["substitute_id"]
+                ).values(
                     "product_name",
                     "nutriscore",
                     "id",
@@ -118,7 +123,9 @@ class ProductManager(models.Manager):
     @staticmethod
     def get_detail(data):
         product_model = apps.get_model("products", "Product")
-        qs_product = product_model.objects.filter(id=data["product-id"]).values(
+        qs_product = product_model.objects.filter(
+            id=data["product-id"]
+        ).values(
             "product_name",
             "nutriscore",
             "id",
