@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "allauth",
     "allauth.account",
+    'allauth.socialaccount',
+
     "openfoodfact.apps.OpenfoodfactConfig",
     "products.apps.ProductsConfig",
     "users.apps.UsersConfig",
