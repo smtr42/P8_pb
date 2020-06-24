@@ -137,6 +137,8 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
+SITE_ID=1
+
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"  # ou "email" ou "username"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_UNIQUE_EMAIL = True
