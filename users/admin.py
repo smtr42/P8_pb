@@ -13,6 +13,10 @@ class UserAdmin(BaseUserAdmin):
     model = User
     form = UserChangeForm
     add_form = UserCreationForm
-    list_display = ['email', 'username',]
+    list_display = [
+        "email",
+        "username",
+    ]
+
 
 admin.site.register(User, UserAdmin)

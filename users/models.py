@@ -10,7 +10,5 @@ class User(AbstractUser):
     This will be the user referenced to.
     """
 
-    
-
     def __str__(self):
         return self.email
