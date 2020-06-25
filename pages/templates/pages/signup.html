@@ -14,13 +14,17 @@
                     <p class="text-white font-weight-light mb-5">
                     <form method="post">
                       {% csrf_token %}
-                      {{ form.as_p }}
+                      {% for field in form.visible_fields %}
+                            <div class="text-white">
+                                {{ field.label_tag }} {{ field }}
+                            </div>
+                        {% endfor %}
                       <button type="submit">Sign up</button>
                     </form>
                     </p>
                 </div>
             </div>
-        </div>
+        </div> 
     </header>
 {% endblock header %}
 

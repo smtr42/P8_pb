@@ -1,6 +1,5 @@
 """Define forms and specify custom User model."""
-from django.contrib.auth import forms
-from django.contrib.auth import get_user_model
+from django.contrib.auth import forms, get_user_model
 
 
 class UserCreationForm(forms.UserCreationForm):
@@ -8,8 +7,9 @@ class UserCreationForm(forms.UserCreationForm):
 
     class Meta(forms.UserCreationForm.Meta):
         """Override the default user with custom user."""
+
         model = get_user_model()
-        fields = ('username', 'email', 'first_name')
+        fields = ("email",)
 
 
 class UserChangeForm(forms.UserChangeForm):
@@ -17,5 +17,6 @@ class UserChangeForm(forms.UserChangeForm):
 
     class Meta(forms.UserChangeForm.Meta):
         """Override the default user with custom user."""
+
         model = get_user_model()
         fields = forms.UserChangeForm.Meta.fields

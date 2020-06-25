@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 {% load static %}
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>LoginPage</title>
@@ -14,11 +14,14 @@
             <div class="row h-100 align-items-center justify-content-center ">
                 <div class="col-lg-8 align-self-baseline">
                     <p class="text-white font-weight-light mb-5">
-                    <h2>Login</h2>
                     <form method="post">
                       {% csrf_token %}
-                      {{ form.as_p }}
-                      <button type="submit">Login</button>
+                      {% for field in form.visible_fields %}
+                            <div class="text-white">
+                                {{ field.label_tag }} {{ field }}
+                            </div>
+                        {% endfor %}
+                      <button type="submit">Se connecter</button>
                     </form>
                     </p>
                 </div>
