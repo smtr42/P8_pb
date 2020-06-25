@@ -153,7 +153,7 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.normpath(os.path.join(PROJECT_DIR, "staticfiles"))
