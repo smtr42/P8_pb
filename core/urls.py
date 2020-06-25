@@ -19,9 +19,8 @@ from django.urls import include, path
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("pages.urls")),
-    path("users/", include("users.urls")),
     path("users/", include("django.contrib.auth.urls")),
-    path("accounts/", include("allauth.urls")),  # new
+    path("accounts/", include("allauth.urls")),
     path("products/", include("products.urls")),
     path(
         "autocomplete/", include("autocomplete.urls", namespace="autocomplete")

@@ -114,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "fr-FR"
 
 TIME_ZONE = "UTC"
 
@@ -141,8 +141,10 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID=1
 
-ACCOUNT_AUTHENTICATION_METHOD = "username_email"  # ou "email" ou "username"
+ACCOUNT_AUTHENTICATION_METHOD = "email"  # ou "email" ou "username"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_UNIQUE_EMAIL = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = 'none'

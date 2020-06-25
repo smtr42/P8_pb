@@ -12,12 +12,12 @@ class NoticePageView(TemplateView):
     template_name = "pages/notice.html"
 
 
-@login_required(login_url="/users/login/")
+@login_required(login_url="/accounts/login/")
 class MyFood(TemplateView):
     template_name = "pages/myfood.html"
 
 
-@login_required(login_url="/users/login/")
+@login_required(login_url="/accounts/login/")
 def Profile(request):
     user = request.user
     return render(request, "pages/account.html", {"user": user})

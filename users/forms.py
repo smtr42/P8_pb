@@ -9,7 +9,7 @@ class UserCreationForm(forms.UserCreationForm):
         """Override the default user with custom user."""
 
         model = get_user_model()
-        fields = ("email", "username")
+        fields = ("email",)
 
 
 class UserChangeForm(forms.UserChangeForm):

@@ -10,8 +10,7 @@ class User(AbstractUser):
     This will be the user referenced to.
     """
 
-    first_name = models.CharField(_("Prénom"), max_length=100)
-    email = models.EmailField(_("Adresse mail"), max_length=100)
+    
 
     def __str__(self):
         return self.email

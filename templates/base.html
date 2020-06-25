@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en">
+<html lang="fr">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -56,8 +56,8 @@
                                 <a href="{% url 'products:fav' %}"><i class="fas fa-carrot fa-fw fa-2x"></i></a>
                                 <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw fa-2x"></i></a>
                             {% else %}
-                                <a href="{% url 'users:signup' %}"><i class="fas fa-user-plus fa-fw fa-2x"></i></a>
-                                <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt fa-fw fa-2x"></i></a>
+                                <a href="{% url 'account_signup' %}"><i class="fas fa-user-plus fa-fw fa-2x"></i></a>
+                                <a href="{% url 'account_login' %}"><i class="fas fa-sign-in-alt fa-fw fa-2x"></i></a>
                             {% endif %}
                         </ul>
                     </div>

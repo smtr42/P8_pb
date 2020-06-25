@@ -14,13 +14,12 @@
                     <p class="text-white font-weight-light mb-5">
                     <form method="post">
                       {% csrf_token %}
-                      {% comment %} {{ form.as_p }} {% endcomment %}
                       {% for field in form.visible_fields %}
                             <div class="text-white">
                                 {{ field.label_tag }} {{ field }}
                             </div>
                         {% endfor %}
-                      <button type="submit">Sign up</button>
+                      <button type="submit">S'enregistrer</button>
                     </form>
                     </p>
                 </div>
