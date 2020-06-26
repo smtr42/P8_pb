@@ -44,9 +44,6 @@
 
                         <form method="POST" action="{% url 'products:detail' %}">
                             {% csrf_token %}
-<!--                            <img class="product-image"-->
-<!--                             src="{{ element.image_url }}"-->
-<!--                             alt="{{ element.product_name }}">-->
                                 <input type="image" name="product-image" src="{{ element.image_url }}" value="{{element.product_name}}">
                                 <input type="hidden" name="product-id" value="{{element.id}}" required="required">
 
