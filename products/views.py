@@ -1,17 +1,19 @@
-from products.managers import ProductManager
-from products.forms import SearchForm
-from django.shortcuts import render
-from django.http import Http404, HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.http import Http404, HttpResponse
+from django.shortcuts import render
+
+from products.forms import SearchForm
+from products.managers import ProductManager
 
 
 def sub_list(request):
     if request.method == "POST":
         form = SearchForm(request.POST)
         if form.is_valid():
-            substitute, selected_product = ProductManager.search_from_user_input(
-                form.cleaned_data
-            )
+            (
+                substitute,
+                selected_product,
+            ) = ProductManager.search_from_user_input(form.cleaned_data)
             return render(
                 request,
                 "products/sub_list.html",
@@ -46,6 +48,8 @@ def detail(request):
     if request.method == "POST":
         data = request.POST
         product_detail = ProductManager.get_detail(data)
-        return render(request, "pages/detail.html", {"product": product_detail})
+        return render(
+            request, "pages/detail.html", {"product": product_detail}
+        )
     else:
         raise Http404

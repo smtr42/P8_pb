@@ -1,5 +1,6 @@
 from django.test import TestCase
-from products.models import Category, Product, Favorite
+
+from products.models import Category, Favorite, Product
 
 
 class CategoryModeltest(TestCase):

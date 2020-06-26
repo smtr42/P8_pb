@@ -45,7 +45,9 @@ class SaveProductTemplateViewTest(TestCase):
     def setUpTestData(cls):
         # Create two users
         cls.test_user1 = User.objects.create_user(
-            username="testuser1", email="test@test.com", password="1X<ISRUkw+tuK"
+            username="testuser1",
+            email="test@test.com",
+            password="1X<ISRUkw+tuK",
         )
 
         # Create a product
@@ -93,4 +95,3 @@ class SaveProductTemplateViewTest(TestCase):
         self.client.force_login(user=self.test_user1)
         response = self.client.post(reverse("products:save"), data=product)
         self.assertEqual(Favorite.objects.count(), 1)
-

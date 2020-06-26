@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import sub_list, save, fav, detail
+
+from .views import detail, fav, save, sub_list
 
 app_name = "products"
 urlpatterns = [
