@@ -23,6 +23,7 @@ AUTH_USER_MODEL = "users.User"
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY")
+# SECRET_KEY = "smtr423^vs4di(%53z$-&wplvc7=*gzmvn&-8f!q)97eexzxq(_8h%(m666"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = False if os.environ.get("ENV", "development") == "production" else True
