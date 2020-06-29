@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import django_heroku
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,12 +26,8 @@ AUTH_USER_MODEL = "users.User"
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY")
-# SECRET_KEY = "smtr423^vs4di(%53z$-&wplvc7=*gzmvn&-8f!q)97eexzxq(_8h%(m666"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = False if os.environ.get("ENV", "development") == "production" else True
-
-DEBUG = False
+DEBUG = False if os.environ.get("ENV", "develoment") == "production" else True
 
 ALLOWED_HOSTS = [".herokuapps.com", "localhost", "127.0.0.1", ".herokuapp.com"]
 
@@ -116,17 +115,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-             'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {"console": {"class": "logging.StreamHandler",},},
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": os.getenv("DJANGO_LOG_LEVEL", "DEBUG"),
         },
     },
 }
@@ -175,6 +170,6 @@ STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, "static"),
 ]
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
