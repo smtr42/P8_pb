@@ -12,9 +12,12 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import django_heroku
-from dotenv import load_dotenv
 
-load_dotenv()
+if os.environ.get("ENV") == "develoment":
+    from dotenv import load_dotenv
+    load_dotenv()
+else:
+    pass
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -172,4 +175,7 @@ STATICFILES_DIRS = [
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
-# django_heroku.settings(locals())
+if os.environ.get("ENV") == "production":
+    django_heroku.settings(locals())
+else:
+    pass
