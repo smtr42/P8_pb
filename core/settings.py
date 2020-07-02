@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 import django_heroku
 
-if os.environ.get("ENV") == "develoment":
+if os.environ.get("ENV") == None:
     from dotenv import load_dotenv
     load_dotenv()
 else:
@@ -117,17 +117,17 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {"console": {"class": "logging.StreamHandler",},},
-    "loggers": {
-        "django": {
-            "handlers": ["console"],
-            "level": os.getenv("DJANGO_LOG_LEVEL", "DEBUG"),
-        },
-    },
-}
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "handlers": {"console": {"class": "logging.StreamHandler",},},
+#     "loggers": {
+#         "django": {
+#             "handlers": ["console"],
+#             "level": os.getenv("DJANGO_LOG_LEVEL", "DEBUG"),
+#         },
+#     },
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/

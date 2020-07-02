@@ -32,10 +32,14 @@
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
-* [About the Project](#about-the-project)
-* [Getting Started](#getting-started)
-* [Usage](#usage)
-* [Contact](#contact)
+- [Table of Contents](#table-of-contents)
+- [About The Project](#about-the-project)
+  - [Functionality](#functionality)
+- [Getting Started](#getting-started)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Tests](#tests)
+- [Author](#author)
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -61,7 +65,7 @@ The goal is to learn about:
 ### Functionality
 
 * Ability to find a reference in a clone of the OpenFoodFacts Database
-* Tee user can create and connect to his personnal account
+* The user can create and connect to his personnal account
 * The user ask for a product in the search bar and get a substitute he can save
  
 <!-- GETTING STARTED -->
@@ -71,37 +75,43 @@ The goal is to learn about:
 I used Python 3.7.7
 
 *  Clone the repo
-```shell script
-git clone https://github.com/smtr42/p8_purb
+```bash
+$ git clone https://github.com/smtr42/p8_purb
 ```
 *  Install required dependencies
-```shell script
-pip install -r requirements.txt
+```bash
+$ pip install -r requirements.txt
 ```
 *  Create database
-```shell script
-python manage.py migrate
+```bash
+$ python manage.py migrate
 ```
-*  Use a custom command to populate database
-```shell script
-python manage.py build
+*  Use a custom django command to populate database, may take a while
+```bash
+$ python manage.py build
 ```
-*  Create bootstrap files in `static/`
-```shell script
-npm install
-npm run build
-```
-*  Launch server
-```shell script
-python manage.py runserver
+*  Create dist files in `static/`
+```bash
+$ npm install
+$ npm run build
 ```
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
+### Usage
+*  Launch local server
+```bash
+$ python manage.py runserver
+```
+### Tests
 
-## Authors
-Project Link: [https://github.com/smtr42/P5_openfoodfact]
+* To test the project I use unittest 
+```bash
+$ python manage.py test
+```
+
+## Author
+[Project Link](https://github.com/smtr42/P5_openfoodfact)
 
 * **Simonnet T** - *Initial work* - [smtr42](https://github.com/smtr42)
    
