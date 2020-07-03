@@ -36,6 +36,7 @@
 - [About The Project](#about-the-project)
   - [Functionality](#functionality)
 - [Getting Started](#getting-started)
+  - [Live version](#live-version)
   - [Installation](#installation)
   - [Usage](#usage)
   - [Tests](#tests)
@@ -71,6 +72,9 @@ The goal is to learn about:
 <!-- GETTING STARTED -->
 ## Getting Started
 
+### Live version
+The website is hosted on heroku  [on this link](http://smtr42p8.herokuapp.com/) `http://smtr42p8.herokuapp.com/`
+
 ### Installation
 I used Python 3.7.7
 
@@ -90,7 +94,7 @@ $ python manage.py migrate
 ```bash
 $ python manage.py build
 ```
-*  Create dist files in `static/`
+*  (Optional) Create dist files in `static/`
 ```bash
 $ npm install
 $ npm run build
