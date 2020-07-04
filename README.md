@@ -40,6 +40,7 @@
   - [Installation](#installation)
   - [Usage](#usage)
   - [Tests](#tests)
+    - [Requirements](#requirements)
 - [Author](#author)
 
 <!-- ABOUT THE PROJECT -->
@@ -108,6 +109,8 @@ $ npm run build
 $ python manage.py runserver
 ```
 ### Tests
+#### Requirements
+ [Geckodriver](https://github.com/mozilla/geckodriver/releases/) must be installed before attempting to use [selenium](https://www.selenium.dev/) tests.
 
 * To test the project I use unittest 
 ```bash

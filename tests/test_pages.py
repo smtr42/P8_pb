@@ -40,8 +40,8 @@ class LoggedInTest(TestCase):
             email="test@test.com",
             password="1X<ISRUkw+tuK",
         )
-        cls.client = Client()
-        cls.client.login(email="test@test.com", password="1X<ISRUkw+tuK")
+        # cls.client = Client()
+        # cls.client.login(email="test@test.com", password="1X<ISRUkw+tuK")
 
         # Create a product
         cls.test_category = Category.objects.create(category_name="Viandes")
@@ -65,14 +65,16 @@ class LoggedInTest(TestCase):
         )
 
     def testLogin(self):
-        
-        response = self.client.get(reverse("pages:profile"))
-        self.assertEqual(response.status_code, 200)
 
-    def test_view_url_exists_at_desired_location(self):
+        self.client.login(email="test@test.com", password="1X<ISRUkw+tuK")
 
         response = self.client.get(reverse("pages:profile"))
         self.assertEqual(response.status_code, 200)
+
+    # def test_view_url_exists_at_desired_location(self):
+
+    #     response = self.client.get(reverse("pages:profile"))
+    #     self.assertEqual(response.status_code, 200)
 
     # def test_view_url_accessible_by_name(self):
     #     response = self.client.get(reverse("pages:profile"))
