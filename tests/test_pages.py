@@ -79,27 +79,23 @@ class LoggedInTest(TestCase):
         response = self.client.get(reverse("pages:profile"))
         self.assertEqual(response.status_code, 200)
 
-    # def test_user_exists(self):
-    #     user = User.objects.get(username="testuser1")
-    #     self.assertEqual(user.username, "testuser1")
+    def test_user_exists(self):
+        user = User.objects.get(username="testuser1")
+        self.assertEqual(user.username, "testuser1")
 
-    # def test_redirect_if_not_logged_in(self):
-    #     response = self.client.get(reverse("products:save"))
-    #     self.assertRedirects(response, "/users/login/?next=/products/save")
-
-    # def test_can_send_message(self):
-    #     product = {
-    #         "product-searched-name": ["Rosette"],
-    #         "product-searched-id": ["2"],
-    #         "product-searched-barcode": ["3449865294044"],
-    #         "product-searched-nutriscore": ["e"],
-    #         "substitute-searched-name": [
-    #             "NESQUIK Moins de Sucres Poudre Cacaotée boîte"
-    #         ],
-    #         "substitute-searched-id": ["3"],
-    #         "substitute-searched-barcode": [""],
-    #         "substitute-searched-nutriscore": ["a"],
-    #     }
-    #     self.client.force_login(user=self.test_user1)
-    #     response = self.client.post(reverse("products:save"), data=product)
-    #     self.assertEqual(Favorite.objects.count(), 1)
+    def test_can_send_message(self):
+        product = {
+            "product-searched-name": ["Rosette"],
+            "product-searched-id": ["2"],
+            "product-searched-barcode": ["3449865294044"],
+            "product-searched-nutriscore": ["e"],
+            "substitute-searched-name": [
+                "NESQUIK Moins de Sucres Poudre Cacaotée boîte"
+            ],
+            "substitute-searched-id": ["3"],
+            "substitute-searched-barcode": [""],
+            "substitute-searched-nutriscore": ["a"],
+        }
+        self.client.force_login(user=self.test_user1)
+        response = self.client.post(reverse("products:save"), data=product)
+        self.assertEqual(Favorite.objects.count(), 1)
