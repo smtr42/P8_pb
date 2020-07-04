@@ -34,16 +34,12 @@ from users.models import User
 class LoggedInTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        # Create two users
         cls.test_user1 = User.objects.create_user(
             username="testuser1",
             email="test@test.com",
             password="1X<ISRUkw+tuK",
         )
-        # cls.client = Client()
-        # cls.client.login(email="test@test.com", password="1X<ISRUkw+tuK")
 
-        # Create a product
         cls.test_category = Category.objects.create(category_name="Viandes")
         cls.test_product = Product.objects.create(
             barcode=3449865294044,
@@ -71,14 +67,17 @@ class LoggedInTest(TestCase):
         response = self.client.get(reverse("pages:profile"))
         self.assertEqual(response.status_code, 200)
 
-    # def test_view_url_exists_at_desired_location(self):
+    def test_view_url_exists_at_desired_location(self):
+        self.client.login(email="test@test.com", password="1X<ISRUkw+tuK")
 
-    #     response = self.client.get(reverse("pages:profile"))
-    #     self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse("pages:profile"))
+        self.assertEqual(response.status_code, 200)
 
-    # def test_view_url_accessible_by_name(self):
-    #     response = self.client.get(reverse("pages:profile"))
-    #     self.assertEqual(response.status_code, 200)
+    def test_view_url_accessible_by_name(self):
+        self.client.login(email="test@test.com", password="1X<ISRUkw+tuK")
+        
+        response = self.client.get(reverse("pages:profile"))
+        self.assertEqual(response.status_code, 200)
 
     # def test_user_exists(self):
     #     user = User.objects.get(username="testuser1")
