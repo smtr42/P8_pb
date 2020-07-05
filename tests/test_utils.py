@@ -1,13 +1,13 @@
+import unittest
 from unittest import mock, skip
 from unittest.mock import Mock, patch
 
 from django.test import TestCase
 
 from openfoodfact.utils import RequestData
-import unittest
 
 
-@skip("skip the test")
+# @skip("skip the test")
 class UtilsTest(TestCase):
     def test_product_request(self):
         def fetch_cat_mock():
@@ -80,8 +80,8 @@ class UtilsTest(TestCase):
                     "Snacks",
                     "Snacks sucrés",
                     "Boissons",
-                    "Viandes",
                     "Produits laitiers",
+                    "Viandes",
                     "Aliments à base de fruits et de légumes",
                     "Plats préparés",
                     "Céréales et pommes de terre",

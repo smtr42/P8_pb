@@ -1,8 +1,8 @@
-from django.test import TestCase, Client
 from django.shortcuts import reverse
+from django.test import Client, TestCase
 
 from products.managers import ProductManager
-from products.models import Product, Category
+from products.models import Category, Product
 
 
 class Databasetest(TestCase):
@@ -97,4 +97,7 @@ class SearchTest(TestCase):
             "image_nut_url",
             "barcode",
         )
-        self.assertEqual(response.context[0]["product"][0]["product_name"], qs_product[0]["product_name"])
+        self.assertEqual(
+            response.context[0]["product"][0]["product_name"],
+            qs_product[0]["product_name"],
+        )
