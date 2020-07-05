@@ -7,6 +7,7 @@ from products.managers import ProductManager
 
 
 def sub_list(request):
+    """Display the list of substitute for one selected product."""
     if request.method == "POST":
         form = SearchForm(request.POST)
         if form.is_valid():
@@ -29,6 +30,7 @@ def sub_list(request):
 
 @login_required(login_url="/accounts/login/")
 def save(request):
+    """Save the product into favorite."""
     if request.method == "POST":
         data = request.POST
         ProductManager.save_product(request, data)
@@ -40,11 +42,13 @@ def save(request):
 
 @login_required(login_url="/accounts/login/")
 def fav(request):
+    """Display favorites saved by user."""
     favs = ProductManager.get_fav(request)
     return render(request, "pages/myfood.html", {"favorites": favs})
 
 
 def detail(request):
+    """Display detail of a selected product."""
     if request.method == "POST":
         data = request.POST
         product_detail = ProductManager.get_detail(data)

@@ -5,7 +5,7 @@ from django.db import IntegrityError, connection, models
 
 
 class ProductManager(models.Manager):
-    """Custom Object."""
+    """Custom Object for Poroduct."""
 
     def create_db_from_openfoodfacts(self, data):
         """Save each product into the database."""
@@ -86,6 +86,7 @@ class ProductManager(models.Manager):
 
     @staticmethod
     def save_product(request, data):
+        """Save the selected product into favorites."""
         favorite_model = apps.get_model("products", "Favorite")
         product_model = apps.get_model("products", "Product")
 
@@ -98,6 +99,7 @@ class ProductManager(models.Manager):
 
     @staticmethod
     def get_fav(request):
+        """Return the favorites of the user."""
         product_model = apps.get_model("products", "Product")
         favorite_model = apps.get_model("products", "Favorite")
         qs_favs = (
@@ -124,6 +126,7 @@ class ProductManager(models.Manager):
 
     @staticmethod
     def get_detail(data):
+        """Return details for a selected product."""
         product_model = apps.get_model("products", "Product")
         qs_product = product_model.objects.filter(
             id=data["product-id"]
@@ -139,4 +142,5 @@ class ProductManager(models.Manager):
         return qs_product
 
     def get_all_by_term(self, term):
+        """Filter product containing terms for autocomplete."""
         return self.filter(product_name__icontains=term)
