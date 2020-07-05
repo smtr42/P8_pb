@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 from django.test import TestCase
 
-from openfoodfact.utils import RequestData, Cleaner
+from openfoodfact.utils import Cleaner, RequestData
 
 
 class UtilsTest(TestCase):
