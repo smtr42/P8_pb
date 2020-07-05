@@ -2,7 +2,6 @@
 from django.apps import apps
 from django.core.management.color import no_style
 from django.db import IntegrityError, connection, models
-from django.shortcuts import get_object_or_404
 
 
 class ProductManager(models.Manager):

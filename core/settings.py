@@ -13,7 +13,7 @@ import os
 
 import django_heroku
 
-if os.environ.get("ENV") == None:
+if os.environ.get("ENV") is None:
     from dotenv import load_dotenv
 
     load_dotenv()
@@ -118,18 +118,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# LOGGING = {
-#     "version": 1,
-#     "disable_existing_loggers": False,
-#     "handlers": {"console": {"class": "logging.StreamHandler",},},
-#     "loggers": {
-#         "django": {
-#             "handlers": ["console"],
-#             "level": os.getenv("DJANGO_LOG_LEVEL", "DEBUG"),
-#         },
-#     },
-# }
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -173,7 +161,6 @@ STATIC_ROOT = os.path.normpath(os.path.join(PROJECT_DIR, "staticfiles"))
 STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, "static"),
 ]
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 if os.environ.get("ENV") == "production":

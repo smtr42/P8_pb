@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from products.models import Category, Favorite, Product
+from products.models import Category, Product
 from users.models import User
 
 

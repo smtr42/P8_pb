@@ -1,4 +1,4 @@
-from django.test import Client, TestCase
+from django.test import TestCase
 from django.urls import reverse
 
 from products.models import Category, Favorite, Product
@@ -40,9 +40,12 @@ class LoggedInTest(TestCase):
             barcode=3449865294044,
             product_name="Rosette",
             nutriscore="e",
-            url="https://fr.openfoodfacts.org/produit/3449865294044/rosette-cochonou",
-            image_url="https://static.openfoodfacts.org/images/products/344/986/529/4044/front_fr.28.400.jpg",
-            image_nut_url="https://static.openfoodfacts.org/images/products/344/986/529/4044/ingredients_fr.12.400.jpg",
+            url="https://fr.openfoodfacts.org/produit/3449865294044/"
+            "rosette-cochonou",
+            image_url="https://static.openfoodfacts.org/images/products/"
+            "344/986/529/4044/front_fr.28.400.jpg",
+            image_nut_url="https://static.openfoodfacts.org/images/products/"
+            "344/986/529/4044/ingredients_fr.12.400.jpg",
         )
         cls.test_product.categories.add(cls.test_category)
 
@@ -93,12 +96,22 @@ class LoggedInTest(TestCase):
         }
         self.client.force_login(user=self.test_user1)
         response = self.client.post(reverse("products:save"), data=product)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(Favorite.objects.count(), 1)
 
     def test_can_view_favorite(self):
         self.client.login(email="test@test.com", password="1X<ISRUkw+tuK")
         response = self.client.get(reverse("products:fav"))
         self.assertEqual(response.status_code, 200)
+
+    def test_autocomplete_view(self):
+        data = {"term": "Rose"}
+        response = self.client.get(reverse("autocomplete:complete"), data)
+        self.assertEqual(response.status_code, 200)
+        products = Product.objects.get_all_by_term(data["term"])
+        products = [product.product_name for product in products]
+
+        self.assertEqual(products, ["Rosette"])
 
 
 class UserLoginViewTest(TestCase):

@@ -1,8 +1,8 @@
 from django.shortcuts import reverse
-from django.test import Client, TestCase
+from django.test import TestCase
 
 from products.managers import ProductManager
-from products.models import Category, Product
+from products.models import Product
 
 
 class Databasetest(TestCase):
@@ -13,10 +13,14 @@ class Databasetest(TestCase):
                 {
                     "product_name_fr": "Indisches Sabji",
                     "id": "4260155025099",
-                    "image_ingredients_url": "https://static.openfoodfacts.org/images/products/426/015/502/5099/ingredients_fr.10.400.jpg",
-                    "image_front_url": "https://static.openfoodfacts.org/images/products/426/015/502/5099/front_fr.7.400.jpg",
+                    "image_ingredients_url": "https://static.openfoodfacts."
+                    "org/images/products/426/015/502/5099/ingredients_fr.10"
+                    ".400.jpg",
+                    "image_front_url": "https://static.openfoodfacts.org/"
+                    "images/products/426/015/502/5099/front_fr.7.400.jpg",
                     "nutrition_grade_fr": "c",
-                    "url": "https://fr.openfoodfacts.org/produit/4260155025099/indisches-sabji-jooti",
+                    "url": "https://fr.openfoodfacts.org/produit/"
+                    "4260155025099/indisches-sabji-jooti",
                 }
             ],
         }
@@ -45,18 +49,26 @@ class SearchTest(TestCase):
                 {
                     "product_name_fr": "Indisches Sabji",
                     "id": "4260155025099",
-                    "image_ingredients_url": "https://static.openfoodfacts.org/images/products/426/015/502/5099/ingredients_fr.10.400.jpg",
-                    "image_front_url": "https://static.openfoodfacts.org/images/products/426/015/502/5099/front_fr.7.400.jpg",
+                    "image_ingredients_url": "https://static.openfoodfacts."
+                    "org/images/products/426/015/502/5099/ingredients_fr"
+                    ".10.400.jpg",
+                    "image_front_url": "https://static.openfoodfacts.org/"
+                    "images/products/426/015/502/5099/front_fr.7.400.jpg",
                     "nutrition_grade_fr": "c",
-                    "url": "https://fr.openfoodfacts.org/produit/4260155025099/indisches-sabji-jooti",
+                    "url": "https://fr.openfoodfacts.org/produit/"
+                    "4260155025099/indisches-sabji-jooti",
                 },
                 {
                     "id": "5410188031072",
                     "product_name_fr": "Gazpacho",
                     "nutrition_grade_fr": "a",
-                    "url": "https://fr.openfoodfacts.org/produit/5410188031072/gazpacho-alvalle",
-                    "image_front_url": "https://static.openfoodfacts.org/images/products/541/018/803/1072/front_fr.30.400.jpg",
-                    "image_ingredients_url": "https://static.openfoodfacts.org/images/products/541/018/803/1072/ingredients_fr.80.400.jpg",
+                    "url": "https://fr.openfoodfacts.org/produit/"
+                    "5410188031072/gazpacho-alvalle",
+                    "image_front_url": "https://static.openfoodfacts.org/"
+                    "images/products/541/018/803/1072/front_fr.30.400.jpg",
+                    "image_ingredients_url": "https://static."
+                    "openfoodfacts.org/images/products/541/018/803/"
+                    "1072/ingredients_fr.80.400.jpg",
                 },
             ],
         }

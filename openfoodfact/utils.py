@@ -114,7 +114,7 @@ class Cleaner:
         else:
             self.barcode_list.append(barcode)
 
-        name = element["product_name_fr"]
+        name = element["product_name_fr"].lower()
         if name in self.name_list:
             return False
         else:
@@ -128,7 +128,6 @@ def req_and_clean(page_size):
     data = r.exec(page_size)
     c = Cleaner(data)
     data = c.filter_product()
-    breakpoint()
     return data
 
 
