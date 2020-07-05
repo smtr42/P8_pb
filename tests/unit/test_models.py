@@ -6,7 +6,8 @@ from users.models import User
 
 class CategoryModelTest(TestCase):
     @classmethod
-    def setUpTestData(cls):
+    def setUpClass(cls):
+        super(CategoryModelTest, cls).setUpClass()
         Category.objects.create(category_name="Sodas")
 
     def test_category_name_label(self):
@@ -27,7 +28,8 @@ class CategoryModelTest(TestCase):
 
 class ProductModelTest(TestCase):
     @classmethod
-    def setUpTestData(cls):
+    def setUpClass(cls):
+        super(ProductModelTest, cls).setUpClass()
         Product.objects.create(
             barcode="1125896345237",
             product_name="Salade sans sauce",
@@ -105,7 +107,8 @@ class ProductModelTest(TestCase):
 
 class UsersTest(TestCase):
     @classmethod
-    def setUpTestData(cls):
+    def setUpClass(cls):
+        super(UsersTest, cls).setUpClass()
         cls.test_user1 = User.objects.create_user(
             username="testuser1",
             email="test@test.com",
