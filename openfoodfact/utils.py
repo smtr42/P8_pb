@@ -128,6 +128,7 @@ def req_and_clean(page_size):
     data = r.exec(page_size)
     c = Cleaner(data)
     data = c.filter_product()
+    breakpoint()
     return data
 
 

@@ -3,6 +3,7 @@ from django.test import TestCase
 from products.models import Category, Favorite, Product
 from users.models import User
 
+
 class CategoryModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -100,6 +101,7 @@ class ProductModelTest(TestCase):
         product = Product.objects.get(id=1)
         expected_object_name = product.product_name
         self.assertEquals(expected_object_name, str(product))
+
 
 class UsersTest(TestCase):
     @classmethod

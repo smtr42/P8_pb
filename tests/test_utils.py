@@ -6,6 +6,7 @@ from django.test import TestCase
 from openfoodfact.utils import RequestData
 import unittest
 
+
 @skip("skip the test")
 class UtilsTest(TestCase):
     def test_product_request(self):

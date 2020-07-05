@@ -22,5 +22,6 @@ class MySeleniumTests(StaticLiveServerTestCase):
         email_input.send_keys("test@test.fr")
         password_input = self.selenium.find_element_by_name("password")
         password_input.send_keys("Aa123456789-")
-        self.selenium.find_element_by_xpath('//button[text()="Se connecter"]').click()
-
+        self.selenium.find_element_by_xpath(
+            '//button[text()="Se connecter"]'
+        ).click()

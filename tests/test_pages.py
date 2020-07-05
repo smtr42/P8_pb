@@ -2,11 +2,10 @@ from django.test import TestCase, Client
 from django.urls import reverse
 
 from products.models import Category, Favorite, Product
-from users.models import User  
+from users.models import User
 
 
 class HomePageViewTest(TestCase):
-
     def test_view_url_exists_at_desired_location(self):
         response = self.client.get("")
         self.assertEqual(response.status_code, 200)
@@ -71,7 +70,7 @@ class LoggedInTest(TestCase):
 
     def test_view_url_accessible_by_name(self):
         self.client.login(email="test@test.com", password="1X<ISRUkw+tuK")
-        
+
         response = self.client.get(reverse("pages:profile"))
         self.assertEqual(response.status_code, 200)
 
@@ -96,6 +95,7 @@ class LoggedInTest(TestCase):
         response = self.client.post(reverse("products:save"), data=product)
         self.assertEqual(Favorite.objects.count(), 1)
 
+
 class UserLoginViewTest(TestCase):
     def test_login_view_url_exists_at_desired_location(self):
         response = self.client.get("/accounts/login/")
@@ -105,6 +105,7 @@ class UserLoginViewTest(TestCase):
         response = self.client.get("/accounts/login/")
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "account/login.html")
+
 
 class UserSignupViewTest(TestCase):
     def test_signup_view_url_exists(self):

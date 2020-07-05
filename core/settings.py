@@ -15,6 +15,7 @@ import django_heroku
 
 if os.environ.get("ENV") == None:
     from dotenv import load_dotenv
+
     load_dotenv()
 else:
     pass
