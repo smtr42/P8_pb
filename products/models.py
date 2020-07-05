@@ -31,9 +31,8 @@ class Product(models.Model):
 
 
 class Favorite(models.Model):
-    """This will regroup the product and its substitute associated
-    with a user.
-    """
+    """This will regroup the product and its substitute associated with a
+    user."""
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,

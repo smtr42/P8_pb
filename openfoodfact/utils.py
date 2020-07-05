@@ -43,7 +43,7 @@ class RequestData:
             print("Something went bad, please retry : :", err)
 
     def _fetch_products(self, page_size):
-        """Request the products in respect for the categories loaded"""
+        """Request the products in respect for the categories loaded."""
         print(
             "Getting Products from API in respect to the"
             " Categories previously got"
@@ -79,7 +79,7 @@ class Cleaner:
     """This class will handle the data formatting before db use."""
 
     def __init__(self, data):
-        """Initialize variables and launch filter_products"""
+        """Initialize variables and launch filter_products."""
         self.data = data
         self.keys = keys
         self.list_cat = [categories for categories in self.data]
@@ -89,7 +89,7 @@ class Cleaner:
         self.name_list = []
 
     def filter_product(self):
-        """Get the data from json files and run checks"""
+        """Get the data from json files and run checks."""
         for category in self.list_cat:
             for element in self.data[category]["products"]:
                 if self._data_exist(element):

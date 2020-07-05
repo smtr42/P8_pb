@@ -95,6 +95,11 @@ class LoggedInTest(TestCase):
         response = self.client.post(reverse("products:save"), data=product)
         self.assertEqual(Favorite.objects.count(), 1)
 
+    def test_can_view_favorite(self):
+        self.client.login(email="test@test.com", password="1X<ISRUkw+tuK")
+        response = self.client.get(reverse("products:fav"))
+        self.assertEqual(response.status_code, 200)
+
 
 class UserLoginViewTest(TestCase):
     def test_login_view_url_exists_at_desired_location(self):

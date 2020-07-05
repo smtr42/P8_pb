@@ -5,8 +5,8 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class User(AbstractUser):
-    """
-    Custom user model derived from Abstractuser.
+    """Custom user model derived from Abstractuser.
+
     This will be the user referenced to.
     """
 

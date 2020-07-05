@@ -101,3 +101,5 @@ class SearchTest(TestCase):
             response.context[0]["product"][0]["product_name"],
             qs_product[0]["product_name"],
         )
+        response = self.client.get(reverse("products:detail"), data=data)
+        self.assertEqual(response.status_code, 404)

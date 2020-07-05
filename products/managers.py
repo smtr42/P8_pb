@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 
 
 class ProductManager(models.Manager):
-    """Custom Object"""
+    """Custom Object."""
 
     def create_db_from_openfoodfacts(self, data):
         """Save each product into the database."""
@@ -32,7 +32,10 @@ class ProductManager(models.Manager):
                     pass
 
     def delete_data_in_tables(self):
-        """Delete data in tables but not tables. To use before insertion."""
+        """Delete data in tables but not tables.
+
+        To use before insertion.
+        """
         product_model = apps.get_model("products", "Product")
         category_model = apps.get_model("products", "Category")
         favorite_model = apps.get_model("products", "Favorite")

@@ -7,7 +7,7 @@ from django.test import TestCase
 from openfoodfact.utils import RequestData
 
 
-# @skip("skip the test")
+@skip("skip the test")
 class UtilsTest(TestCase):
     def test_product_request(self):
         def fetch_cat_mock():
