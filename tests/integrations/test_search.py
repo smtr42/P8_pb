@@ -7,7 +7,8 @@ from users.models import User
 
 class Searchtest(TestCase):
     @classmethod
-    def setUpTestData(cls):
+    def setUpClass(cls):
+        super(Searchtest, cls).setUpClass()
         cls.test_user1 = User.objects.create_user(
             username="testuser1",
             email="test@test.com",

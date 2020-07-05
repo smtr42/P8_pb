@@ -7,7 +7,8 @@ from products.models import Product
 
 class Databasetest(TestCase):
     @classmethod
-    def setUpTestData(cls):
+    def setUpClass(cls):
+        super(Databasetest, cls).setUpClass()
         cls.data = {
             "sabji": [
                 {
@@ -27,7 +28,9 @@ class Databasetest(TestCase):
         Product.objects.create_db_from_openfoodfacts(cls.data)
 
     def test_database_creation(self):
-        product = Product.objects.filter(id=4).values("product_name")
+        product = Product.objects.filter(barcode=4260155025099).values(
+            "product_name"
+        )
         self.assertEqual(
             product[0]["product_name"],
             self.data["sabji"][0]["product_name_fr"],
@@ -43,7 +46,8 @@ class Databasetest(TestCase):
 
 class SearchTest(TestCase):
     @classmethod
-    def setUpTestData(cls):
+    def setUpClass(cls):
+        super(SearchTest, cls).setUpClass()
         cls.data = {
             "sabji": [
                 {
