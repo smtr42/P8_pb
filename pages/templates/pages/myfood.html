@@ -1,13 +1,7 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
 {% load static%}
 
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% block title %}Mes favoris{% endblock title %}
 
 {% block content %}
     <section class="page-section" id="fav-list">
@@ -40,9 +34,3 @@
         </div>
     </section>
 {% endblock content %}
-
-
-
-
-</body>
-</html>

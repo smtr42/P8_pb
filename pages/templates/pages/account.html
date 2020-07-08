@@ -1,13 +1,7 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
 {% load static%}
 
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% block title %}Mon profile{% endblock title %}
 
 {% block header %}
     <section class="page-section bg-dark" id="head">
@@ -27,6 +21,3 @@
     {% endif %}
 
 {% endblock header %}
-
-</body>
-</html>

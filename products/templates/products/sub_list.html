@@ -1,13 +1,7 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
 {% load static %}
 
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Pur Beurre</title>
-</head>
-<body>
+{% block title %}Liste de substitut{% endblock title %}
 {% block header %}
     <section class="page-section bg-dark" id="head">
         <div class="container">
@@ -77,6 +71,3 @@
 
 {% block footer %}
 {% endblock footer %}
-
-</body>
-</html>

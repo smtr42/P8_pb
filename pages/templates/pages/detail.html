@@ -1,12 +1,6 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
 {% load static%}
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% block title %}Détail du produit{% endblock title %}
 {% block header %}
     <section class="page-section bg-dark" id="head">
         <div class="container">
@@ -54,6 +48,3 @@
         </div>
     </section>
 {% endblock content %}
-
-</body>
-</html>

@@ -1,12 +1,6 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
 {% load static%}
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Mentions légales</title>
-</head>
-<body>
+{% block title %}Informations légales{% endblock title %}
         {% block mentions %}
         <!-- mentions légales-->
         <section id="contact" class="page-section">
@@ -25,5 +19,3 @@
           </div>
         </section>
         {% endblock mentions %}
-</body>
-</html>
